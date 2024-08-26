@@ -26,4 +26,5 @@ int main(int c, char **ar)
         i++;
     }
     std::cout << std::endl;
+    return (0);
 }
