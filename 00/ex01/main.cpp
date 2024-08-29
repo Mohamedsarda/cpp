@@ -1,5 +1,6 @@
 #include <iostream>
 #include <sstream>
+#include "PhoneBook.hpp"
 
 int main(int c, char **ar)
 {
@@ -10,6 +11,7 @@ int main(int c, char **ar)
         return (1);
     }
     std::string input;
+    PhoneBook book;
     while (1)
     {
         std::cout << "-> : ";
