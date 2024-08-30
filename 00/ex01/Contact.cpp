@@ -59,3 +59,11 @@ void    Contact::set_darkest_secret(std::string DarkestSecret)
 {
     this->DarkestSecret = DarkestSecret;
 }
+
+Contact::Contact()
+{
+}
+
+Contact::~Contact()
+{
+}

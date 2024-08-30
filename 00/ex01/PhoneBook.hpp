@@ -17,13 +17,4 @@ class PhoneBook
         ~PhoneBook();
 };
 
-PhoneBook::PhoneBook()
-{
-}
-
-PhoneBook::~PhoneBook()
-{
-}
-
-
 #endif
