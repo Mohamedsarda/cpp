@@ -12,7 +12,7 @@ class PhoneBook
     public:
         void    ft_add_to_book(PhoneBook *book);
         //
-        void    ft_insert_first_name(Contact *NewContact);
+        void    ft_insert_to_book(PhoneBook *book, Contact New, int *i);
         PhoneBook();
         ~PhoneBook();
 };
