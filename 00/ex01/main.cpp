@@ -1,5 +1,3 @@
-#include <iostream>
-#include <sstream>
 #include "PhoneBook.hpp"
 
 int main(int c, char **ar)
@@ -11,7 +9,7 @@ int main(int c, char **ar)
         return (1);
     }
     std::string input;
-    PhoneBook book;
+    PhoneBook   book;
     while (1)
     {
         std::cout << "-> : ";
@@ -21,6 +19,7 @@ int main(int c, char **ar)
         if (input == "ADD")
         {
             std::cout << "do add shit" << std::endl;
+            book.ft_add_to_book(&book);
         }
         else if (input == "SEARCH")
             std::cout << "do search shit" << std::endl;

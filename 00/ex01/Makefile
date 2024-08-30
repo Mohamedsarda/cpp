@@ -1,6 +1,6 @@
 NAME = phoneBook
 
-SRC = main.cpp
+SRC = Contact.cpp ft_add_phonebook.cpp Insert.cpp  main.cpp
  
 OBJ = $(SRC:%.cpp=%.o)
 
