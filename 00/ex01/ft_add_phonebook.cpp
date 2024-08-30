@@ -28,6 +28,18 @@ int ft_parse_name(std::string name)
     return (0);
 }
 
+int ft_check_name(std::string input, int isName)
+{
+    isName = ft_parse_name(input);
+    if (isName == 1)
+        return (1);
+    else if (isName == 0)
+        std::cout << "The First And Last Name Should Not Contain A Digit\n";
+    else if (isName == -1)
+        std::cout << "The First And Last Name Should At Least Have 3 Characters And Less Then 15\n";
+    return (0);
+}
+
 void    PhoneBook::ft_add_to_book(PhoneBook *book)
 {
     (void)book;
@@ -44,13 +56,8 @@ void    PhoneBook::ft_add_to_book(PhoneBook *book)
             exit(1);
         if (input.empty())
             std::cout << "The Input Is Empty Try Again\n";
-        isName = ft_parse_name(input);
-        if (isName == 1)
+        if (ft_check_name(input, isName) == 1)
             break ;
-        else if (isName == 0)
-            std::cout << "The First And Last Name Should Not Contain A Digit\n";
-        else if (isName == -1)
-            std::cout << "The First And Last Name Should At Least Have 3 Characters And Less Then 15\n";
     }
     NewContact.set_FristName(input);
     while (1)
@@ -60,13 +67,8 @@ void    PhoneBook::ft_add_to_book(PhoneBook *book)
             exit(1);
         if (input.empty())
             std::cout << "The Input Is Empty Try Again\n";
-        isName = ft_parse_name(input);
-        if (isName == 1)
+        if (ft_check_name(input, isName) == 1)
             break ;
-        else if (isName == 0)
-            std::cout << "The First And Last Name Should Not Contain A Digit\n";
-        else if (isName == -1)
-            std::cout << "The First And Last Name Should At Least Have 3 Characters And Less Then 15\n";
     }
     NewContact.set_LastName(input);
     while (1)
