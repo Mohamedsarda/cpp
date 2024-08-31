@@ -65,7 +65,7 @@ void    PhoneBook::ft_add_to_book(PhoneBook *book)
     {
         std::cout << "Enter Your First Name : ";
         if (!std::getline(std::cin, input))
-            exit(1);
+            exit(0);
         if (input.empty())
             std::cout << "The Input Is Empty Try Again\n";
         if (ft_check_name(input, isName) == 1)
@@ -76,7 +76,7 @@ void    PhoneBook::ft_add_to_book(PhoneBook *book)
     {
         std::cout << "Enter Your Last Name : ";
         if (!std::getline(std::cin, input))
-            exit(1);
+            exit(0);
         if (input.empty())
             std::cout << "The Input Is Empty Try Again\n";
         if (ft_check_name(input, isName) == 1)
@@ -87,7 +87,7 @@ void    PhoneBook::ft_add_to_book(PhoneBook *book)
     {
         std::cout << "Enter Your Phone Number : ";
         if (!std::getline(std::cin, input))
-            exit(1);
+            exit(0);
         if (input.empty() || input.length() != 10)
         {
             std::cout << "The Phone Number You Provided Is Wrong\n";
@@ -112,7 +112,7 @@ void    PhoneBook::ft_add_to_book(PhoneBook *book)
     {
         std::cout << "Enter Your Nick Name : ";
         if (!std::getline(std::cin, input))
-            exit(1);
+            exit(0);
         if (input.empty())
             std::cout << "The Input Is Empty Try Again\n";
         if (ft_check_name(input, isName) == 1)
@@ -123,7 +123,7 @@ void    PhoneBook::ft_add_to_book(PhoneBook *book)
     {
         std::cout << "Enter Your Darkest Secret : ";
         if (!std::getline(std::cin, input))
-            exit(1);
+            exit(0);
         if (input.empty())
             std::cout << "The Input Is Empty Try Again\n";
         else
@@ -131,4 +131,69 @@ void    PhoneBook::ft_add_to_book(PhoneBook *book)
     }
     NewContact.set_darkest_secret(input);
     book->ft_insert_to_book(book, NewContact, &NumContact);
+}
+
+Contact    PhoneBook::ft_get_contact(int i)
+{
+    Contact contact;
+
+    contact.set_LastName(Contacts[i].get_last_name());
+    contact.set_nick_name(Contacts[i].get_nick_name());
+    contact.set_FristName(Contacts[i].get_first_name());
+    contact.set_phone_number(Contacts[i].get_phone_number());
+    contact.set_darkest_secret(Contacts[i].get_darkest_secret());
+    return (contact);
+}
+
+static void print_line(std::string input)
+{
+    int         i = 0;
+
+    if (input.length() > 10)
+		input[9] = '.';
+	else if (input.length() < 10 && !input.empty())
+	{
+		i = input.length();
+		while (i++ < 10)
+			std::cout << " ";
+	}
+	if (input.length() > 10 || input.empty())
+		input.resize(10, ' ');
+	std::cout << input;
+}
+
+void    PhoneBook::ft_print_contact(Contact contact, int i)
+{
+    std::cout << "#    "<< i + 1 << "    |";
+    print_line(contact.get_first_name());
+    std::cout << "|";
+    print_line(contact.get_last_name());
+    std::cout << "|";
+    print_line(contact.get_nick_name());
+    std::cout << "#" << std::endl;
+}
+
+void    PhoneBook::ft_showTable(PhoneBook book)
+{
+    std::string input;
+    int         i = -1;
+
+    std::cout << "############################################\n";
+    std::cout << "#  Index  #  F Name  #  L Name  #  N Name  #\n";
+    while (++i < 8)
+        ft_print_contact(book.ft_get_contact(i), i);
+    std::cout << "############################################\n";
+    while (1)
+    {
+        std::cout << "Search With Index : ";
+        if (!std::getline(std::cin, input))
+            exit (0);
+        if (!input.empty() && input.length() == 1 && input[0] >= '1' && input[0] <= '8')
+        {
+            std::cout << input << "\n";
+            return ;
+        }
+        else
+            std::cout << "\033[31mPlease Enter An Index From 1 - 8\033[0m\n";
+    }
 }

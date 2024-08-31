@@ -17,12 +17,9 @@ int main(int c, char **ar)
             return (1);
         std::cout << input << std::endl;
         if (input == "ADD")
-        {
-            std::cout << "do add shit" << std::endl;
             book.ft_add_to_book(&book);
-        }
         else if (input == "SEARCH")
-            std::cout << "do search shit" << std::endl;
+            book.ft_showTable(book);
         else if (input == "EXIT")
         {
             std::cout << "By till next time" << std::endl;
