@@ -176,6 +176,7 @@ void    PhoneBook::ft_print_contact(Contact contact, int i)
 void    PhoneBook::ft_showTable(PhoneBook book)
 {
     std::string input;
+    Contact     contact;
     int         i = -1;
 
     std::cout << "############################################\n";
@@ -191,6 +192,12 @@ void    PhoneBook::ft_showTable(PhoneBook book)
         if (!input.empty() && input.length() == 1 && input[0] >= '1' && input[0] <= '8')
         {
             std::cout << input << "\n";
+            contact = ft_get_contact(std::stoi(input) - 1);
+            std::cout << "First Name       : " << contact.get_first_name() << std::endl;
+            std::cout << "Last Name        : " << contact.get_last_name() << std::endl;
+            std::cout << "Nick Name        : " << contact.get_nick_name() << std::endl;
+            std::cout << "Phone Number     : " << contact.get_phone_number() << std::endl;
+            std::cout << "Darkest Sercret  : " << contact.get_darkest_secret() << std::endl;
             return ;
         }
         else
