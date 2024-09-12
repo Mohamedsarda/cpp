@@ -10,19 +10,19 @@ int main(int c, char **ar)
     }
     std::string input;
     PhoneBook   book;
+    
     while (1)
     {
-        std::cout << "-> : ";
+        std::cout << "Enter A Command   :  ";
         if (!std::getline(std::cin, input))
             return (1);
-        std::cout << input << std::endl;
         if (input == "ADD")
             book.ft_add_to_book(&book);
         else if (input == "SEARCH")
             book.ft_showTable(book);
         else if (input == "EXIT")
         {
-            std::cout << "By till next time" << std::endl;
+            std::cout << "Exit" << std::endl;
             exit(0);
         }
         else

@@ -14,14 +14,10 @@ int main(int c, char **ar)
     std::string tmp;
     while (i < c)
     {
-        j = 0;
+        j = -1;
         tmp = ar[i];
-        while (j < tmp.length())
-        {
-            if (tmp[j] >= 'a' && tmp[j] <= 'z')
-                tmp[j] -= 32;
-            j++;
-        }
+        while (++j < tmp.length())
+            tmp[j] = std::toupper(tmp[j]);
         std::cout << tmp << " ";
         i++;
     }

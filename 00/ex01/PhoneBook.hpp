@@ -20,4 +20,8 @@ class PhoneBook
         ~PhoneBook();
 };
 
+int     ft_parse_name(std::string name);
+int     ft_check_name(std::string input, int isName);
+void    print_line(std::string input);
+
 #endif

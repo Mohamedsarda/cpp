@@ -1,6 +1,6 @@
-#include "PhoneBook.hpp"
+#include "../PhoneBook.hpp"
 
-int PhoneBook::ft_parse_name(std::string name)
+int ft_parse_name(std::string name)
 {
     unsigned long i = 0;
     unsigned long j = 0;
@@ -11,7 +11,7 @@ int PhoneBook::ft_parse_name(std::string name)
     {
         if (isdigit(name[i]))
             return (0);
-        if (isalpha(name[j]))
+        if (isalpha(name[j]) || name[j] == ' ')
             j++;
         i++;
     }
@@ -20,7 +20,7 @@ int PhoneBook::ft_parse_name(std::string name)
     return (0);
 }
 
-int PhoneBook::ft_check_name(std::string input, int isName)
+int ft_check_name(std::string input, int isName)
 {
     isName = ft_parse_name(input);
     if (isName == 1)
@@ -30,4 +30,21 @@ int PhoneBook::ft_check_name(std::string input, int isName)
     else if (isName == -1)
         std::cout << "\033[31mThe First And Last And Nick Name Should At Least Have 3 Characters And Less Then 15\033[0m\n";
     return (0);
+}
+
+void    print_line(std::string input)
+{
+    int         i = 0;
+
+    if (input.length() > 10)
+		input[9] = '.';
+	else if (input.length() < 10 && !input.empty())
+	{
+		i = input.length();
+		while (i++ < 10)
+			std::cout << " ";
+	}
+	if (input.length() > 10 || input.empty())
+		input.resize(10, ' ');
+	std::cout << input;
 }
