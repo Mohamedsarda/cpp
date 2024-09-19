@@ -10,7 +10,7 @@ CC = c++
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) ./PhoneBook.hpp
 	$(CC)  -std=c++98 -Wall -Wextra -Werror $(OBJ) -o $@
 %.o : %.cpp
 	$(CC)  -std=c++98 -Wall -Wextra -Werror -c $< -o $@

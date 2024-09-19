@@ -8,6 +8,7 @@ int main(int c, char **ar)
         std::cout << "Too many arguments !" << std::endl;
         return (1);
     }
+    
     std::string input;
     PhoneBook   book;
     
@@ -23,7 +24,7 @@ int main(int c, char **ar)
         else if (input == "EXIT")
         {
             std::cout << "Exit" << std::endl;
-            exit(0);
+            std::exit(0);
         }
         else
             continue ;

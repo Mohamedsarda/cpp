@@ -20,15 +20,16 @@ int ft_parse_name(std::string name)
     return (0);
 }
 
-int ft_check_name(std::string input, int isName)
+int ft_check_name(std::string input)
 {
-    isName = ft_parse_name(input);
+    int isName = ft_parse_name(input);
+    
     if (isName == 1)
         return (1);
     else if (isName == 0)
-        std::cout << "\033[31mThe First And Last And Nick Name Should Not Contain A Digit\033[0m\n";
+        std::cout << "\033[31mThe First And Last And Nick Name Should Not Contain A Digit\033[0m" << std::endl;
     else if (isName == -1)
-        std::cout << "\033[31mThe First And Last And Nick Name Should At Least Have 3 Characters And Less Then 15\033[0m\n";
+        std::cout << "\033[31mThe First And Last And Nick Name Should At Least Have 3 Characters And Less Then 15\033[0m" << std::endl;
     return (0);
 }
 

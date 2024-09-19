@@ -20,84 +20,97 @@ void    PhoneBook::ft_insert_to_book(PhoneBook *book, Contact New, int *i)
     (*i)++;
 }
 
+std::string    ft_insert_data(std::string name, int type)
+{
+    unsigned long i = 0;
+    std::string   input;
+
+    switch (type)
+    {
+        case 1:
+            while (1)
+            {
+                std::cout << "Enter Your " << name << " : ";
+                if (!std::getline(std::cin, input))
+                    exit(0);
+                if (input.empty())
+                {
+                    std::cout << "\033[31mThe Input Is Empty Try Again\033[0m" << std::endl;
+                    continue ;
+                }
+                if (ft_check_name(input) == 1)
+                    break ;
+            }
+            break;
+        case 2:
+                while (1)
+                {
+                    std::cout << "Enter Your " << name << " : ";
+                    if (!std::getline(std::cin, input))
+                        exit(0);
+                    if (input.empty())
+                    {
+                        std::cout << "\033[31mThe Input Is Empty Try Again\033[0m" << std::endl;
+                        continue ;
+                    }
+                    if (name == "Darkest Secret")
+                        break ;
+                    if (ft_check_name(input) == 1)
+                        break ;
+                }
+                break ;
+        case 3:
+            while (1)
+            {
+                i = 0;
+                std::cout << "Enter Your " << name << " : ";
+                if (!std::getline(std::cin, input))
+                    exit(0);
+                if (input.empty() || input.length() != 10)
+                {
+                    std::cout << "\033[31mThe Phone Number You Provided Is Wrong\033[0m" << std::endl;
+                    continue ;
+                }
+                int isValid = 1;
+                while (i < input.length())
+                {
+                    if (!std::isdigit(input[i]))
+                    {
+                        std::cout << "\033[31mThe Phone Number Should be a Number with 10 digits\033[0m" << std::endl;
+                        isValid = 0;
+                        break ;
+                    }
+                    i++;
+                }
+                if (isValid)
+                    break ;
+            }
+            break ;
+    }
+    return (input);
+}
+
 void    PhoneBook::ft_add_to_book(PhoneBook *book)
 {
     (void)book;
     std::string input;
     Contact     NewContact;
-    int         isName = 1;
-    unsigned long   i = 0;
     static int  NumContact;
 
-    while (1)
-    {
-        std::cout << "Enter Your First Name : ";
-        if (!std::getline(std::cin, input))
-            exit(0);
-        if (input.empty())
-            std::cout << "\033[31mThe Input Is Empty Try Again\033[0m\n";
-        if (ft_check_name(input, isName) == 1)
-            break ;
-    }
+
+    input = ft_insert_data("First Name", 1);
     NewContact.set_FristName(input);
-    while (1)
-    {
-        std::cout << "Enter Your Last Name : ";
-        if (!std::getline(std::cin, input))
-            exit(0);
-        if (input.empty())
-            std::cout << "\033[31mThe Input Is Empty Try Again\033[0m\n";
-        if (ft_check_name(input, isName) == 1)
-            break ;
-    }
+
+    input = ft_insert_data("Last Name", 1);
     NewContact.set_LastName(input);
-    while (1)
-    {
-        std::cout << "Enter Your Phone Number : ";
-        if (!std::getline(std::cin, input))
-            exit(0);
-        if (input.empty() || input.length() != 10)
-        {
-            std::cout << "\033[31mThe Phone Number You Provided Is Wrong\033[0m\n";
-            continue ;
-        }
-        int isValid = 1;
-        while (i < input.length())
-        {
-            if (!isdigit(input[i]))
-            {
-                std::cout << "\033[31mThe Phone Number Should be a Number with 10 digits\033[0m\n";
-                isValid = 0;
-                break ;
-            }
-            i++;
-        }
-        if (isValid)
-            break ;
-    }
+
+    input = ft_insert_data("Phone Number", 3);
     NewContact.set_phone_number(input);
-    while (1)
-    {
-        std::cout << "Enter Your Nick Name : ";
-        if (!std::getline(std::cin, input))
-            exit(0);
-        if (input.empty())
-            std::cout << "\033[31mThe Input Is Empty Try Again\033[0m\n";
-        if (ft_check_name(input, isName) == 1)
-            break ;
-    }
+
+    input = ft_insert_data("Nick Name", 2);
     NewContact.set_nick_name(input);
-    while (1)
-    {
-        std::cout << "Enter Your Darkest Secret : ";
-        if (!std::getline(std::cin, input))
-            exit(0);
-        if (input.empty())
-            std::cout << "\033[31mThe Input Is Empty Try Again\033[0m\n";
-        else
-            break ;
-    }
+
+    input = ft_insert_data("Darkest Secret", 2);
     NewContact.set_darkest_secret(input);
     book->ft_insert_to_book(book, NewContact, &NumContact);
 }
-

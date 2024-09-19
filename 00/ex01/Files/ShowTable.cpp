@@ -30,11 +30,19 @@ void    PhoneBook::ft_showTable(PhoneBook book)
     Contact     contact;
     int         i = -1;
 
-    std::cout << "############################################\n";
-    std::cout << "#  Index  #  F Name  #  L Name  #  N Name  #\n";
+    std::cout << "############################################" << std::endl;
+    std::cout << "#  Index  #  F Name  #  L Name  #  N Name  #" << std::endl;
     while (++i < 8)
+    {
+        if (book.ft_get_contact(0).get_first_name().empty())
+        {
+            std::cout << "#               No Data Found              #" << std::endl;
+            std::cout << "############################################" << std::endl;
+            return ;
+        }
         ft_print_contact(book.ft_get_contact(i), i);
-    std::cout << "############################################\n";
+    }
+    std::cout << "############################################" << std::endl;
     while (1)
     {
         std::cout << "Search With Index : ";
@@ -43,6 +51,8 @@ void    PhoneBook::ft_showTable(PhoneBook book)
         if (!input.empty() && input.length() == 1 && input[0] >= '1' && input[0] <= '8')
         {
             contact = ft_get_contact(std::stoi(input) - 1);
+            if (contact.get_first_name().empty())
+                return ;
             std::cout << "Id               : " << input << std::endl;
             std::cout << "First Name       : " << contact.get_first_name() << std::endl;
             std::cout << "Last Name        : " << contact.get_last_name() << std::endl;
@@ -52,6 +62,6 @@ void    PhoneBook::ft_showTable(PhoneBook book)
             return ;
         }
         else
-            std::cout << "\033[31mPlease Enter An Index From 1 - 8\033[0m\n";
+            std::cout << "\033[31mPlease Enter An Index From 1 - 8\033[0m" << std::endl;
     }
 }
