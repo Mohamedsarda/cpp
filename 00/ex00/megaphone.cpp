@@ -5,7 +5,6 @@ int main(int c, char **ar)
     int i = 1;
     unsigned long j = 0;
 
-
     if (c < 2)
     {
         std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" << std::endl;

@@ -3,7 +3,6 @@
 void    Zombie::announce( void )
 {
     std::cout << this->name << ": BraiiiiiiinnnzzzZ..." << std::endl;
-    return ;
 }
 
 std::string Zombie::get_name()
