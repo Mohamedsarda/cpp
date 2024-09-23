@@ -6,7 +6,7 @@ int main(int c, char **arg)
 {
     if (c != 4)
     {
-        std::cout << "To use the program, enter ./app <filename> <s1> <s2>" << std::endl;
+        std::cout << "To use the program, enter ./main <filename> <s1> <s2>" << std::endl;
         return 1;
     }
 
@@ -15,7 +15,7 @@ int main(int c, char **arg)
     std::string s1 = arg[2];
     std::string s2 = arg[3];
 
-    if (s1 == "" || s2 == "")
+    if (s1.empty() || s2.empty())
     {
         std::cout << "S1 and S2 can't be empty" << std::endl;
         return (1);
@@ -36,8 +36,23 @@ int main(int c, char **arg)
     }
 
     std::string content;
-    
-
+    size_t      pos;
+    size_t      foundPos;
+    while (std::getline(file, content))
+    {
+        std::string newContent;
+        pos = 0;
+        foundPos = 0;
+        
+        while ((foundPos = content.find(s1, pos)) != std::string::npos)
+        {
+            newContent += content.substr(pos, foundPos - pos);
+            newContent += s2;
+            pos = foundPos + s1.length();
+        }
+        newContent += content.substr(pos);
+        outFile << newContent << std::endl;
+    }
     // Close the files
     file.close();
     outFile.close();

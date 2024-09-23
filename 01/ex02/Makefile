@@ -1,4 +1,4 @@
-NAME = App
+NAME = main
 
 SRC = main.cpp
  
