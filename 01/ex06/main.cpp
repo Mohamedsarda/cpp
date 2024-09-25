@@ -11,8 +11,5 @@ int main(int c, char **arg)
     Harl harl;
 
     harl.complain(arg[1]);
-    // harl.complain(arg[1]);
-    // harl.complain(arg[1]);
-    // harl.complain(arg[1]);
     return (0);
 }
