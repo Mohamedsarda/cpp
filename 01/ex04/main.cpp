@@ -38,21 +38,19 @@ int main(int c, char **arg)
     std::string content;
     size_t      pos;
     size_t      foundPos;
-    while (std::getline(file, content))
+    std::getline(file, content, '\0');
+    std::string newContent;
+    pos = 0;
+    foundPos = 0;
+    
+    while ((foundPos = content.find(s1, pos)) != std::string::npos)
     {
-        std::string newContent;
-        pos = 0;
-        foundPos = 0;
-        
-        while ((foundPos = content.find(s1, pos)) != std::string::npos)
-        {
-            newContent += content.substr(pos, foundPos - pos);
-            newContent += s2;
-            pos = foundPos + s1.length();
-        }
-        newContent += content.substr(pos);
-        outFile << newContent << std::endl;
+        newContent += content.substr(pos, foundPos - pos);
+        newContent += s2;
+        pos = foundPos + s1.length();
     }
+    newContent += content.substr(pos);
+    outFile << newContent << std::endl;
     // Close the files
     file.close();
     outFile.close();
