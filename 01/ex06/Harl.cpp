@@ -29,28 +29,6 @@ void Harl::complain( std::string level )
         if (Levels[i] == level)
          break ;
     }
-    // switch (i)
-    // {
-    //     case 0:
-    //         while (i < 4)
-    //             (this->*functions[i++])();
-    //         break ;
-    //     case 1:
-    //         while (i < 4)
-    //             (this->*functions[i++])();
-    //         break ;
-    //     case 2:
-    //         while (i < 4)
-    //             (this->*functions[i++])();
-    //         break ;
-    //     case 3:
-    //         while (i < 4)
-    //             (this->*functions[i++])();
-    //         break ;
-    //     default:
-    //         std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
-    //         return ;
-    // }
     switch (i)
     {
         case 0:

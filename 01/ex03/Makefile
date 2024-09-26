@@ -12,7 +12,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	$(CC)  -std=c++98 -Wall -Wextra -Werror $(OBJ) -o $@
-%.o : %.cpp
+%.o : %.cpp ./HumanA.hpp ./HumanB.hpp ./Weapon.hpp
 	$(CC)  -std=c++98 -Wall -Wextra -Werror -c $< -o $@
 
 clean:
