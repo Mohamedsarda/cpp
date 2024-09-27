@@ -11,12 +11,6 @@ Harl::~Harl()
 
 void Harl::complain( std::string level )
 {
-    void    (Harl::*functions[])(void) = {
-        &Harl::debug,
-        &Harl::info,
-        &Harl::warning,
-        &Harl::error,
-    };
     std::string Levels[] = {
         "DEBUG",
         "INFO",
@@ -33,16 +27,16 @@ void Harl::complain( std::string level )
     {
         case 0:
             std::cout << "[ DEBUG ]" << std::endl;
-            (this->*functions[0])();
+            this->debug();
         case 1:
             std::cout << "[ INFO ]" << std::endl;
-            (this->*functions[1])();
+            this->info();
         case 2:
             std::cout << "[ WARNING ]" << std::endl;
-            (this->*functions[2])();
+            this->warning();
         case 3:
             std::cout << "[ ERROR ]" << std::endl;
-            (this->*functions[3])();
+            this->error();
             break ;
         default:
             std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;

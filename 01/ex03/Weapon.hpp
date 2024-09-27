@@ -11,7 +11,7 @@ class Weapon
 
     public:
         // Getter
-        std::string getType();
+        std::string getType() const;
 
         // Setter
         void setType(std::string type);

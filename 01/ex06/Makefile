@@ -4,7 +4,7 @@ SRC = main.cpp Harl.cpp
  
 OBJ = $(SRC:%.cpp=%.o)
 
-CPPFALGS =  -std=c++98 -Wall -Wextra -Werror -g
+
 
 CC = c++
 

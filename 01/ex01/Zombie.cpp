@@ -5,10 +5,11 @@ void    Zombie::announce( void )
     std::cout << this->name << ": BraiiiiiiinnnzzzZ..." << std::endl;
 }
 
-std::string Zombie::get_name()
+std::string Zombie::get_name() const
 {
     return (this->name);
 }
+
 void        Zombie::set_name(std::string name)
 {
     this->name = name;
@@ -21,5 +22,5 @@ Zombie::Zombie()
 
 Zombie::~Zombie()
 {
-    std::cout << "Destructor Called" << std::endl;
+    std::cout << "Destructor Called For : " << this->get_name() << std::endl;
 }
