@@ -1,8 +1,9 @@
 #include "Fixed.hpp"
 
-Fixed::Fixed() : number(0)
+Fixed::Fixed()
 {
     std::cout << "Default constructor called" << std::endl;
+    this->number = 0;
 }
 
 Fixed::Fixed(const Fixed &obj)
@@ -15,10 +16,7 @@ Fixed &Fixed::operator=(Fixed const &obj)
 {
     std::cout << "Copy assignment operator called" << std::endl;
     if (this != &obj)
-    {
-        // this->fractionNum = obj.fractionNum;
-        this->number = getRawBits();
-    }
+        this->number = obj.number;
     return *this;
 }
 
