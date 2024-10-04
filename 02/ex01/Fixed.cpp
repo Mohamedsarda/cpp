@@ -2,8 +2,8 @@
 #include <iostream>
 #include <cmath>
 
-// Initialize fractionNum to 256 directly
-const int Fixed::fractionNum = 256;
+// Initialize fractionalBits to 256 directly
+const int Fixed::fractionalBits = 256;
 
 Fixed::Fixed()
 {
@@ -20,13 +20,13 @@ Fixed::Fixed(const Fixed &obj)
 Fixed::Fixed(const int value)
 {
     std::cout << "Int constructor called" << std::endl;
-    this->number = value * fractionNum; // Multiply by 256
+    this->number = value * fractionalBits; // Multiply by 256
 }
 
 Fixed::Fixed(const float value)
 {
     std::cout << "Float constructor called" << std::endl;
-    this->number = roundf(value * fractionNum); // Multiply by 256
+    this->number = roundf(value * fractionalBits); // Multiply by 256
 }
 
 Fixed &Fixed::operator=(Fixed const &obj)
@@ -64,14 +64,14 @@ float Fixed::toFloat(void) const
     // Convert fixed-point back to float by dividing by 256
     float value;
 
-    value = (this->number * 1.0) / fractionNum;
+    value = (this->number * 1.0) / fractionalBits;
     return value;
 }
 
 int Fixed::toInt(void) const
 {
     // Convert fixed-point back to int by dividing by 256
-    return this->number / fractionNum;
+    return this->number / fractionalBits;
 }
 
 // 0000 0000 0010 1010
