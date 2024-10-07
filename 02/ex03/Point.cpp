@@ -3,26 +3,26 @@
 Point::Point(const Point &copy)
 {
     *this = copy;
-    std::cout << "Copy constructor Called" << std::endl;
+    // std::cout << "Copy constructor Called" << std::endl;
 }
 
 Point::Point(const float x, const float y)
 {
     this->x = x;
     this->y = y;
-    std::cout << "Two floating-point constructor called" << std::endl;
+    // std::cout << "Two floating-point constructor called" << std::endl;
 }
 
 Point::Point()
 {
     x = 0;
     y = 0;
-    std::cout << "Default constructor called" << std::endl;
+    // std::cout << "Default constructor called" << std::endl;
 }
 
 Point::~Point()
 {
-    std::cout << "Destructor Called" << std::endl;
+    // std::cout << "Destructor Called" << std::endl;
 }
 
 // getters

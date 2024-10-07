@@ -2,6 +2,7 @@
 #define POINT_H
 
 #include "iostream"
+#include <cmath>
 #include "Fixed.hpp"
 
 class Point
@@ -13,7 +14,7 @@ class Point
         Fixed getX() const;
         Fixed getY() const;
         //
-        Point &operator=(const Point &copy);
+        // Point &operator=(const Point &copy);
         //
         Point();
         Point(const Point &copy);
@@ -22,5 +23,6 @@ class Point
         ~Point();
 };
 
+bool bsp(Point const a, Point const b, Point const c, Point const point);
 
 #endif

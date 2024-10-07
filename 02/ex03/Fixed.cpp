@@ -1,6 +1,4 @@
-#include "Fixed.hpp"
-#include <iostream>
-#include <cmath>
+#include "Point.hpp"
 
 // Initialize fractionalBits to 256 directly
 const int Fixed::fractionalBits = 1 << 8;
