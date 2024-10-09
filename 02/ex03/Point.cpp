@@ -25,6 +25,22 @@ Point::~Point()
     // std::cout << "Destructor Called" << std::endl;
 }
 
+Point &Point::operator=(const Point &copy)
+{
+    if (this != &copy)
+    {
+        this->x = copy.getX();
+        this->y = copy.getY();
+    }
+    return *this;
+}
+
+std::ostream &operator<<(std::ostream &out, const Point &obj)
+{
+    out << "Point( " << obj.getX() << " , " << obj.getY() << " );";
+    return (out);
+}
+
 // getters
 
 Fixed Point::getX() const

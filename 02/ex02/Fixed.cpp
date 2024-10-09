@@ -3,7 +3,7 @@
 #include <cmath>
 
 // Initialize fractionalBits to 256 directly
-const int Fixed::fractionalBits = 1 << 8;
+const int Fixed::fractionalBits = 8;
 
 Fixed::Fixed()
 {
@@ -17,12 +17,12 @@ Fixed::Fixed(const Fixed &obj)
 
 Fixed::Fixed(const int value)
 {
-    this->number = value * fractionalBits;
+    this->number = value * (1 << fractionalBits);
 }
 
 Fixed::Fixed(const float value)
 {
-    this->number = roundf(value * fractionalBits);
+    this->number = roundf(value * (1 << fractionalBits));
 }
 
 // < > >= <= == !=
@@ -181,11 +181,11 @@ float Fixed::toFloat(void) const
 {
     float value;
 
-    value = (this->number * 1.0) / fractionalBits;
+    value = (this->number * 1.0) / (1 << fractionalBits);
     return value;
 }
 
 int Fixed::toInt(void) const
 {
-    return this->number / fractionalBits;
+    return this->number / (1 << fractionalBits);
 }

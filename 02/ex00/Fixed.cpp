@@ -1,5 +1,7 @@
 #include "Fixed.hpp"
 
+const int Fixed::fractionalBits = 8;
+
 Fixed::Fixed()
 {
     std::cout << "Default constructor called" << std::endl;
@@ -16,7 +18,7 @@ Fixed &Fixed::operator=(Fixed const &obj)
 {
     std::cout << "Copy assignment operator called" << std::endl;
     if (this != &obj)
-        this->number = obj.number;
+        this->number = obj.getRawBits();
     return *this;
 }
 
