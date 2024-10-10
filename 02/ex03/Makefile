@@ -10,7 +10,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	$(CC)  -std=c++98 -Wall -Wextra -Werror $(OBJ) -o $@
-%.o : %.cpp ./Fixed.hpp
+%.o : %.cpp Fixed.hpp Point.hpp
 	$(CC)  -std=c++98 -Wall -Wextra -Werror -c $< -o $@
 
 clean:

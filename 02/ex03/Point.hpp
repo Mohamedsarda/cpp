@@ -8,7 +8,7 @@
 class Point
 {
     private:
-        Fixed x;
+        Fixed x; 
         Fixed y;
     public:
         Fixed getX() const;
