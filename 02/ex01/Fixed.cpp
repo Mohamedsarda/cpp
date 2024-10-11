@@ -73,12 +73,3 @@ int Fixed::toInt(void) const
     // Convert fixed-point back to int by dividing by 256
     return this->number / (1 << fractionalBits);
 }
-
-// 0000 0000 0010 1010
-// 0000 0000 0101 0100
-// 0000 0000 1010 1000
-// 0000 0001 0101 0000
-// 0000 0010 1010 0000
-// 0000 0101 0100 0000
-// 0000 1010 1000 0000
-// 0001 0101 0000 0000
