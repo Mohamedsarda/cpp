@@ -6,7 +6,7 @@ int main()
     ClapTrap Sarda("Sarda");
 
     Med.attack(Sarda.getName());
-    Sarda.takeDamage(10);
-    Sarda.beRepaired(10);
+    Sarda.takeDamage(Med.get_Attack_Damage());
+    Sarda.beRepaired(90);
     return 0;
 }

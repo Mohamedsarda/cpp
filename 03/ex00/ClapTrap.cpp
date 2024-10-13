@@ -4,43 +4,42 @@
 
 void ClapTrap::attack(const std::string& target)
 {
-    if (_Energy_Points == 0)
+    if (get_Energy_Points() <= 0 || get_Hit_Points() <= 0)
     {
         std::cout << getName() << " have No Energy Left" << std::endl;
         return ;
     }
     std::cout << "ClapTrap " << getName() << " attacks ";
     std::cout << target << " , causing "<< get_Attack_Damage() <<" Points Of Damage" << std::endl;
+    set_Energy_Points(get_Energy_Points() - 1);
 }
 
 void ClapTrap::takeDamage(unsigned int amount)
-{
-    int i = (int)get_Hit_Points() - (int)amount;
-    
-    if (i < 0)
+{    
+    if (amount > get_Hit_Points())
     {
         std::cout << "Can't Take That Much Damage" << std::endl;
         return ;
     }
     set_Hit_Points(get_Hit_Points() - amount);
-    std::cout << getName() << "Took " << amount << " Damage" << std::endl;
+    std::cout << getName() << " Took " << amount << " Damage" << std::endl;
 }
 
 void ClapTrap::beRepaired(unsigned int amount)
 {
-    if (amount > 10)
+    if ((amount + get_Hit_Points()) > 100)
     {
-        std::cout << "You Can't Repair With More Then 10 Points" << std::endl;
+        std::cout << "You Can't Repair With More Then 100 Points" << std::endl;
         return ;
     }
-    if (get_Energy_Points() == 0)
+    if (get_Energy_Points() <= 0)
     {
-        std::cout << "You Don't Have Any Energy Left You Can't Be Repaired" << std::endl;
+        std::cout << getName() << " doesn't have any energy left; you can't be repaired" << std::endl;
         return ;
     }
-    set_Hit_Points(amount);
+    set_Hit_Points(get_Hit_Points() + amount);
     set_Energy_Points(get_Energy_Points() - 1);
-    std::cout << getName() << "'s Health Was Repaired To " << amount << std::endl;
+    std::cout << getName() << "'s Health Was Repaired To " << get_Hit_Points() << std::endl;
 }
 
 // constructor destructor
@@ -78,7 +77,7 @@ ClapTrap &ClapTrap::operator=(const ClapTrap &copy)
 
 ClapTrap::~ClapTrap()
 {
-    std::cout << "Destructor Called For " << _Name << std::endl;
+    std::cout << "Destructor Called For " << getName() << std::endl;
 }
 
 
