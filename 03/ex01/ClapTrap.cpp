@@ -50,7 +50,7 @@ ClapTrap::ClapTrap()
     set_Hit_Points(10);
     set_Energy_Points(10);
     set_Attack_Damage(0);
-    std::cout << "Default Constructor Called For " << getName() << std::endl; 
+    std::cout << "ClapTrap Default Constructor Called For " << getName() << std::endl; 
 }
 
 ClapTrap::ClapTrap(std::string name)
@@ -59,7 +59,7 @@ ClapTrap::ClapTrap(std::string name)
     set_Hit_Points(10);
     set_Energy_Points(10);
     set_Attack_Damage(0);
-    std::cout << "Constructor Called For " << name << std::endl;
+    std::cout << "ClapTrap Constructor Called For " << name << std::endl;
 }
 
 ClapTrap::ClapTrap(const ClapTrap &copy)
@@ -68,7 +68,7 @@ ClapTrap::ClapTrap(const ClapTrap &copy)
     set_Energy_Points(copy.get_Energy_Points());
     set_Hit_Points(copy.get_Hit_Points());
     set_Attack_Damage(copy.get_Attack_Damage());
-    std::cout << "Copy Constructor Called" << std::endl;
+    std::cout << "ClapTrap Copy Constructor Called" << std::endl;
 }
 
 
@@ -81,13 +81,13 @@ ClapTrap &ClapTrap::operator=(const ClapTrap &copy)
         set_Hit_Points(copy.get_Hit_Points());
         set_Attack_Damage(copy.get_Attack_Damage());
     }
-    std::cout << "Copy Assignment Operator Called" << std::endl;
+    std::cout << "ClapTrap Copy Assignment Operator Called" << std::endl;
     return *this;
 }
 
 ClapTrap::~ClapTrap()
 {
-    std::cout << "Destructor Called For " << getName() << std::endl;
+    std::cout << "ClapTrap Destructor Called For " << getName() << std::endl;
 }
 
 

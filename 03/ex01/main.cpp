@@ -10,11 +10,6 @@ int main()
     Med.attack(Sarda.getName());
     Sarda.takeDamage(Med.get_Attack_Damage());
     Sarda.beRepaired(20);
-    // Med1.attack(Sarda1.getName());
-    // Sarda1.takeDamage(Med1.get_Attack_Damage());
-    // Sarda1.beRepaired(90);
-    // Med.attack(Sarda1.getName());
-    // Sarda1.takeDamage(Med.get_Attack_Damage());
-    // Sarda1.beRepaired(90);
+    Sarda.guardGate();
     return 0;
 }
