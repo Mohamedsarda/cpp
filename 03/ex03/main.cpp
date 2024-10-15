@@ -1,9 +1,9 @@
-#include "FragTrap.hpp"
+#include "DiamondTrap.hpp"
 
 int main()
 {
-    FragTrap Med("Med");
-    FragTrap Sarda("Sarda");
+    DiamondTrap Med("Med");
+    DiamondTrap Sarda("Sarda");
 
     Med.attack(Sarda.getName());
     Sarda.takeDamage(Med.get_Attack_Damage());
