@@ -11,7 +11,7 @@ std::string DiamondTrap::getDiamondTrapName( void ) const
 
 void    DiamondTrap::whoAmI()
 {
-    std::cout << "My Name Is : " << getDiamondTrapName() << "The ClapTrap Name is : " << ClapTrap::getName() << std::endl;
+    std::cout << "My Name Is '" << getDiamondTrapName() << "' And My ClapTrap Name is '" << getName() << "'" << std::endl;
 }
 
 //

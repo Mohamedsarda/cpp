@@ -9,5 +9,6 @@ int main()
     Sarda.takeDamage(Med.get_Attack_Damage());
     Sarda.beRepaired(20);
     Med.highFivesGuys();
+    Med.whoAmI();
     return 0;
 }
