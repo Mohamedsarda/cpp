@@ -33,9 +33,9 @@ DiamondTrap::DiamondTrap()
 {
     setName("DiamondTrap_clap_name");
     setDiamondTrapName("DiamondTrap");
-    set_Hit_Points(FragTrap::get_Hit_Points());
-    set_Energy_Points(ScavTrap::get_Energy_Points());
-    set_Attack_Damage(FragTrap::get_Attack_Damage());
+    set_Hit_Points(100);
+    set_Energy_Points(50);
+    set_Attack_Damage(30);
     std::cout << "DiamondTrap Default Constructor Called For " << getDiamondTrapName() << std::endl; 
 }
 DiamondTrap::DiamondTrap(std::string name)
