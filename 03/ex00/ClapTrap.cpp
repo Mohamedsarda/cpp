@@ -6,7 +6,7 @@ void ClapTrap::attack(const std::string& target)
 {
     if (get_Energy_Points() <= 0 || get_Hit_Points() <= 0)
     {
-        std::cout << getName() << " have No Energy Left" << std::endl;
+        std::cout << getName() << " Can't Attack Without Energy Or Hit Points" << std::endl;
         return ;
     }
     std::cout << "ClapTrap " << getName() << " attacks ";

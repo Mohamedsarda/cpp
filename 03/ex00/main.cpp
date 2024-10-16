@@ -2,7 +2,6 @@
 
 int main()
 {
-    ClapTrap Test;
     ClapTrap Med("Med");
     ClapTrap Sarda("Sarda");
 
