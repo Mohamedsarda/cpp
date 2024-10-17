@@ -8,6 +8,7 @@ class ScavTrap : virtual public ClapTrap
     public:
         //
         void    guardGate();
+        void attack(const std::string& target) override;
         //
         ScavTrap &operator=(const ScavTrap &copy);
         //

@@ -4,7 +4,17 @@ void    ScavTrap::guardGate()
 {
     std::cout << getName() << " Is Now In Gate Keeper Mode" << std::endl;
 }
-
+void ScavTrap::attack(const std::string& target)
+{
+    if (get_Energy_Points() <= 0 || get_Hit_Points() <= 0)
+    {
+        std::cout << getName() << " Can't Attack Without Energy Or Hit Points :ScavTrap:" << std::endl;
+        return ;
+    }
+    std::cout << "ScavTrap " << getName() << " attacks ";
+    std::cout << target << " , causing "<< get_Attack_Damage() <<" Points Of Damage" << std::endl;
+    set_Energy_Points(get_Energy_Points() - 1);
+}
 //
 ScavTrap &ScavTrap::operator=(const ScavTrap &copy)
 {
