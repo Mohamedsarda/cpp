@@ -19,10 +19,10 @@ int main()
     j->makeSound();
     meta->makeSound();
     // ...
-    Dog rot("rot");
-    rot.makeSound();
     delete meta;
     delete i;
     delete j;
+    Dog rot("rot");
+    rot.makeSound();
     return 0;
 }
