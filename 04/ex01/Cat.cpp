@@ -10,7 +10,8 @@ Cat &Cat::operator=(const Cat &copy)
     if (this != &copy)
     {
         setType(copy.getType());
-        delete this->brain;
+        if (this->brain)
+            delete this->brain;
         this->brain = new Brain(*copy.brain);
     }
     std::cout << "Cat Copy Assignment Operator Called" << std::endl;
@@ -27,7 +28,7 @@ Cat::Cat(std::string _type)
 Cat::Cat(const Cat &copy)
 {
     setType(copy.getType());
-    this->brain = copy.brain;
+    this->brain = new Brain(*copy.brain);
     std::cout << "Cat Copy Constructor Called" << std::endl;
 }
 
@@ -40,6 +41,6 @@ Cat::Cat()
 
 Cat::~Cat()
 {
-    // delete this->brain;
+    delete this->brain;
     std::cout << "Cat Destructor Called For " << getType() << std::endl;
 }

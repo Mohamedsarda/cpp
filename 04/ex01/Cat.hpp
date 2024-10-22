@@ -6,8 +6,9 @@
 
 class Cat : public Animal
 {
-    public:
+    private:
         Brain *brain;
+    public:
         //
         void   makeSound( void ) const override;
         //
