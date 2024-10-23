@@ -10,7 +10,7 @@ class Cat : public Animal
         Brain *brain;
     public:
         //
-        void   makeSound( void ) const override;
+        void   makeSound( void ) const;
         //
         Cat &operator=(const Cat &copy);
         //

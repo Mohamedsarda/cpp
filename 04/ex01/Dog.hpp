@@ -2,12 +2,15 @@
 #define DOG_HPP
 
 #include "Animal.hpp"
+#include "Brain.hpp"
 
 class Dog : public Animal
 {
+    private:
+        Brain *brain;
     public:
         //
-        void   makeSound( void ) const override;
+        void   makeSound( void ) const;
         //
         Dog &operator=(const Dog &copy);
         //
