@@ -7,7 +7,7 @@ class Cat : public Animal
 {
     public:
         //
-        void   makeSound( void ) const override;
+        void   makeSound( void ) const;
         //
         Cat &operator=(const Cat &copy);
         //

@@ -1,4 +1,6 @@
 #include "Animal.hpp"
+#include "WrongAnimal.hpp"
+#include "WrongCat.hpp"
 #include "Dog.hpp"
 #include "Cat.hpp"
 
@@ -22,6 +24,9 @@ int main()
     delete meta;
     delete i;
     delete j;
+    WrongAnimal *anim = new WrongCat();
+    anim->makeSound();
+    delete anim;
     Dog rot("rot");
     rot.makeSound();
     return 0;
