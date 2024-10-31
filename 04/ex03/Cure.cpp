@@ -1,5 +1,10 @@
 #include "Cure.hpp"
 
+Cure* Cure::clone() const {
+    Cure *clone = new Cure(this->_type);
+    return (clone);
+}
+
 void Cure::use(ICharacter& target) {
     std::cout << "* heals "<< getType() << "’s wounds *" << std::endl;
 }

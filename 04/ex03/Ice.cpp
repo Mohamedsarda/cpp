@@ -1,5 +1,10 @@
 #include "Ice.hpp"
 
+Ice* Ice::clone() const {
+    Ice *tmp = new Ice(this->_type);
+    return (tmp);
+}
+
 void Ice::use(ICharacter& target) {
     std::cout << "* shoots an ice bolt at " << getType() << "*" << std::endl;
 }
