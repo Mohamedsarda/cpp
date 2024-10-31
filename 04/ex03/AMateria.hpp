@@ -9,7 +9,9 @@ class AMateria
     protected:
         std::string _type;
     public:
+        AMateria &operator=(const AMateria &copy);
         AMateria(std::string const & type);
+        AMateria(const AMateria &copy);
         AMateria();
         virtual ~AMateria();
         //

@@ -6,7 +6,15 @@
 class Cure : public AMateria
 {
     public:
-        Cure(/* args */);
+        //
+        void use(ICharacter& target);
+        //
+        Cure(std::string const type);
+        Cure(const Cure &copy);
+        //
+        Cure &operator=(const Cure &copy);
+        //
+        Cure();
         ~Cure();
 };
 

@@ -6,7 +6,15 @@
 class Ice : public AMateria
 {
     public:
-        Ice(/* args */);
+        //
+        void use(ICharacter& target);
+        //
+        Ice &operator=(const Ice &copy);
+        //
+        Ice(const Ice &copy);
+        Ice(std::string const type);
+        //
+        Ice();
         ~Ice();
 };
 
