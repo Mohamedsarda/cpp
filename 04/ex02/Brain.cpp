@@ -3,7 +3,10 @@
 Brain &Brain::operator=(const Brain &copy)
 {
     if (this != &copy)
-        std::copy(copy.ideas, copy.ideas + 100, this->ideas); // ?????????
+    {
+        for (int i = 0; i < 100; ++i)
+            this->ideas[i] = copy.ideas[i];
+    }
     std::cout << "Brain Copy Assignment Operator Called" << std::endl;
     return (*this);
 }
