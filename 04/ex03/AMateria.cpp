@@ -30,3 +30,7 @@ std::string const & AMateria::getType() const {
 AMateria::~AMateria() {
     
 }
+
+void AMateria::use(ICharacter& target) {
+
+}
