@@ -1,7 +1,7 @@
 #include "Cure.hpp"
 
 Cure* Cure::clone() const {
-    Cure *clone = new Cure(this->_type);
+    Cure *clone = new Cure(*this);
     return (clone);
 }
 
@@ -14,7 +14,7 @@ Cure::Cure(std::string const type) {
 }
 
 Cure::Cure(const Cure &copy) {
-    this->_type = copy.getType();
+    *this = copy;
 }
 
 //
@@ -25,8 +25,8 @@ Cure &Cure::operator=(const Cure &copy) {
 }
 
 
-Cure::Cure() : AMateria("cure"){
-
+Cure::Cure() {
+    this->_type = "cure";
 }
 
 Cure::~Cure()

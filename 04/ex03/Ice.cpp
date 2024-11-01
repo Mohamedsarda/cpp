@@ -1,7 +1,7 @@
 #include "Ice.hpp"
 
 Ice* Ice::clone() const {
-    Ice *tmp = new Ice(this->_type);
+    Ice *tmp = new Ice(*this);
     return (tmp);
 }
 
@@ -18,7 +18,7 @@ Ice &Ice::operator=(const Ice &copy) {
 
 //
 Ice::Ice(const Ice &copy) {
-    this->_type = copy.getType();
+    *this = copy;
 }
 
 Ice::Ice(std::string const type) {
@@ -26,8 +26,8 @@ Ice::Ice(std::string const type) {
 }
 
 
-Ice::Ice() : AMateria("ice") {
-
+Ice::Ice() {
+    this->_type = "ice";
 }
 
 Ice::~Ice() {
