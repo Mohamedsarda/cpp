@@ -6,7 +6,7 @@ Cure* Cure::clone() const {
 }
 
 void Cure::use(ICharacter& target) {
-    std::cout << "* heals "<< getType() << "’s wounds *" << std::endl;
+    std::cout << "* heals "<< target.getName() << "’s wounds *" << std::endl;
 }
 
 Cure::Cure(std::string const type) {

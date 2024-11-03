@@ -16,7 +16,7 @@ void Character::equip(AMateria* m) {
 }
 
 void Character::unequip(int idx) {
-    static int i;
+    // static int i;
 
     if (amateria[idx] != NULL && idx >= 0 && idx < 4)
     {

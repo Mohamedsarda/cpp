@@ -1,8 +1,8 @@
 #include "AMateria.hpp"
 
-AMateria::AMateria(std::string const & type) {
-    this->_type = type;
-}
+// AMateria::AMateria(std::string const & type) {
+//     this->_type = type;
+// }
 
 AMateria &AMateria::operator=(const AMateria &copy) {
     if (this != &copy)
