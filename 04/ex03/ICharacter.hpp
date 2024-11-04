@@ -4,7 +4,7 @@
 #include "iostream"
 #include "AMateria.hpp"
 
-class AMateria;
+class AMateria; // Forward declare ICharacter to avoid circular dependency
 
 class ICharacter
 {

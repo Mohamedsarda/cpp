@@ -15,7 +15,7 @@ class MateriaSource : public IMateriaSource
         //
         MateriaSource &operator=(const MateriaSource &copy);
         //
-        MateriaSource(const std::string _type);
+        // MateriaSource(const std::string _type);
         MateriaSource(const MateriaSource &copy);
         //
         MateriaSource();

@@ -16,16 +16,15 @@ void Character::equip(AMateria* m) {
 }
 
 void Character::unequip(int idx) {
-    // static int i;
 
-    if (amateria[idx] != NULL && idx >= 0 && idx < 4)
+    if (idx >= 0 && idx < 4 && amateria[idx] != NULL)
     {
         amateria[idx] = NULL;
     }
 }
 
 void Character::use(int idx, ICharacter& target) {
-    if (amateria[idx] == 0 || idx < 0 || idx > 3)
+    if (idx < 0 || idx > 3 || amateria[idx] == 0)
         return ;
     amateria[idx]->use(target);
 }
