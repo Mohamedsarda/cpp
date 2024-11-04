@@ -6,7 +6,7 @@
 class MateriaSource : public IMateriaSource
 {
     private:
-        std::string type;
+        // std::string type;
         AMateria *amateria[4];
     public:
         //

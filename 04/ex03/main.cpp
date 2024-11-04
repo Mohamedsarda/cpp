@@ -3,8 +3,14 @@
 #include "Cure.hpp"
 #include "Character.hpp"
 
+void ff()
+{
+    system("leaks main");
+}
+
 int main()
 {
+    atexit(ff);
     IMateriaSource* src = new MateriaSource();
     src->learnMateria(new Ice());
     src->learnMateria(new Cure());

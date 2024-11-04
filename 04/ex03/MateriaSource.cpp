@@ -3,10 +3,10 @@
 void MateriaSource::learnMateria(AMateria *copy) {
     for (int i = 0; i < 4; i++)
     {
-        if (amateria[i] != NULL)
+        if (amateria[i] == NULL)
         {
             amateria[i] = copy;
-            break ;
+            return ;
         }
     }
     delete copy;
@@ -15,8 +15,8 @@ void MateriaSource::learnMateria(AMateria *copy) {
 AMateria* MateriaSource::createMateria(std::string const & type) {
     for (int i = 0; i < 4; i++)
     {
-        if (amateria[i]->getType() == type)
-            return (amateria[i]);
+        if (amateria[i]->getType() == type && amateria[i] != NULL)
+            return (amateria[i]->clone());
     }
     return NULL;
 }
@@ -25,24 +25,25 @@ AMateria* MateriaSource::createMateria(std::string const & type) {
 MateriaSource &MateriaSource::operator=(const MateriaSource &copy) {
     if (this != &copy)
     {
-        type = copy.type;
         for (int i = 0; i < 4; i++)
+        {
+            if (amateria[i])
+                delete amateria[i];
             amateria[i] = copy.amateria[i]->clone();
+        }
     }
     return *this;
 }
 
 //
-MateriaSource::MateriaSource(const std::string _type) {
-    type = _type;
-    for (int i = 0; i < 4; i++)
-        amateria[i] = 0;
-}
+// MateriaSource::MateriaSource(const std::string _type) {
+//     for (int i = 0; i < 4; i++)
+//         amateria[i] = 0;
+// }
 
 MateriaSource::MateriaSource(const MateriaSource &copy) {
     if (this != &copy)
     {
-        type = copy.type;
         for (int i = 0; i < 4; i++)
             amateria[i] = copy.amateria[i]->clone();
     }
@@ -50,7 +51,6 @@ MateriaSource::MateriaSource(const MateriaSource &copy) {
 
 //
 MateriaSource::MateriaSource() {
-    type = "MateriaSource";
     for (int i = 0; i < 4; i++)
         amateria[i] = 0;
 }
