@@ -5,8 +5,8 @@ void MateriaSource::learnMateria(AMateria *copy) {
     {
         if (amateria[i] == NULL)
         {
-            amateria[i] = copy;
-            return ;
+            amateria[i] = copy->clone();
+            break ;
         }
     }
     delete copy;
@@ -25,11 +25,15 @@ AMateria* MateriaSource::createMateria(std::string const & type) {
 MateriaSource &MateriaSource::operator=(const MateriaSource &copy) {
     if (this != &copy)
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 4 ; i++)
         {
             if (amateria[i])
+            {
                 delete amateria[i];
-            amateria[i] = copy.amateria[i]->clone();
+                amateria[i] = NULL;
+            }
+            if (copy.amateria[i])
+                amateria[i] = copy.amateria[i]->clone();
         }
     }
     return *this;
@@ -45,14 +49,17 @@ MateriaSource::MateriaSource(const MateriaSource &copy) {
     if (this != &copy)
     {
         for (int i = 0; i < 4; i++)
-            amateria[i] = copy.amateria[i]->clone();
+        {
+            if (copy.amateria[i])
+                amateria[i] = copy.amateria[i]->clone();
+        }
     }
 }
 
 //
 MateriaSource::MateriaSource() {
     for (int i = 0; i < 4; i++)
-        amateria[i] = 0;
+        amateria[i] = NULL;
 }
 
 MateriaSource::~MateriaSource() {

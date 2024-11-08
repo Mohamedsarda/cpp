@@ -5,6 +5,8 @@ std::string const & Character::getName() const {
 }
 
 void Character::equip(AMateria* m) {
+    if (!m)
+        return ;
     for (int i = 0; i < 4; i++)
     {
         if (!amateria[i])
@@ -37,8 +39,12 @@ Character &Character::operator=(const Character &copy) {
         for (int i = 0; i < 4 ; i++)
         {
             if (amateria[i])
+            {
                 delete amateria[i];
-            amateria[i] = copy.amateria[i]->clone();
+                amateria[i] = NULL;
+            }
+            if (copy.amateria[i])
+                amateria[i] = copy.amateria[i]->clone();
         }
     }
     return *this;
