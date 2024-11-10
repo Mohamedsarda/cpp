@@ -25,16 +25,18 @@ class Form
         };
         //
         std::string const & getName() const;
-        bool & getIsSigned() const;
+        bool getIsSigned() const;
         const int & getSignIt() const;
         const int & getExecuteIt() const;
         //
-        Form &operator=(const Form &copy);
+        // Form &operator=(const Form &copy);
         Form(const std::string &_name, const int &_sign_it, const int &_execute_it);
-        Form(const Form &copy);
+        // Form(const Form &copy);
         Form();
         ~Form();
 };
 
+
+std::ostream &operator<<(std::ostream &out, const Form &obj);
 
 #endif

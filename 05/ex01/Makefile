@@ -1,7 +1,7 @@
-NAME = Bureaucrat
+NAME = Form
 
 SRC = main.cpp Bureaucrat.cpp Form.cpp
- 
+
 OBJ = $(SRC:%.cpp=%.o)
 
 CC = c++
