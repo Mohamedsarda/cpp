@@ -24,8 +24,13 @@ class Form
                 const char *what() const throw();
         };
         //
+        std::string const & getName() const;
+        bool & getIsSigned() const;
+        const int & getSignIt() const;
+        const int & getExecuteIt() const;
+        //
         Form &operator=(const Form &copy);
-        Form(const std::string &name, const int &_sign_it, const int &_execute_it);
+        Form(const std::string &_name, const int &_sign_it, const int &_execute_it);
         Form(const Form &copy);
         Form();
         ~Form();
