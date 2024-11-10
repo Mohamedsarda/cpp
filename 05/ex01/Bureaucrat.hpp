@@ -2,6 +2,9 @@
 #define BUREAUCRAT_HPP
 
 #include "iostream"
+#include "Form.hpp"
+
+class Form;
 
 class Bureaucrat
 {
@@ -26,6 +29,8 @@ class Bureaucrat
         //
         void increment();
         void decrement();
+        //
+        void signForm(const Form &obj);
         //
         Bureaucrat &operator=(const Bureaucrat &copy);
         //

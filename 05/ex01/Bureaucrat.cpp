@@ -60,6 +60,18 @@ Bureaucrat::~Bureaucrat() {
 
 }
 
+void Bureaucrat::signForm(const Form &obj) {
+    try {
+        obj.beSigned()
+        std::cout << this << " signed " << obj std::endl;
+    } catch (const std::exception &e)
+    {
+        std::cerr << this.getName() << " couldn’t sign ";
+        std::cerr << obj.getName() << " because ";
+        std::cerr << e.what() << std::endl;
+    }
+}
+
 //<name>, bureaucrat grade <grade>
 std::ostream &operator<<(std::ostream &out, const Bureaucrat &obj) {
     out << obj.getName() << ", bureaucrat grade " << obj.getGrade();

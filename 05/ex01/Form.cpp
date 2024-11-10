@@ -29,9 +29,11 @@ const int & Form::getExecuteIt() const {
 
 //
 
-// Form &Form::operator=(const Form &copy) {
-//     return *this;
-// }
+Form &Form::operator=(const Form &copy) {
+    if (this != &copy)
+        isSigned = false;
+    return *this;
+}
 
 Form::Form(const std::string &_name, const int &_sign_it, const int &_execute_it) :
     name(_name), sign_it(_sign_it), execute_it(_execute_it)
@@ -43,10 +45,11 @@ Form::Form(const std::string &_name, const int &_sign_it, const int &_execute_it
         throw GradeTooLowException();
 }
 
-// Form::Form(const Form &copy) {
-//     isSigned = false;
-
-// }
+Form::Form(const Form &copy)
+: name(copy.getName()), sign_it(copy.getSignIt()), execute_it(copy.getExecuteIt())  {
+    if (this != &copy)
+        isSigned = false;
+}
 
 Form::Form() : name("Form"), sign_it(0), execute_it(0) {
     isSigned = false;
@@ -54,6 +57,13 @@ Form::Form() : name("Form"), sign_it(0), execute_it(0) {
 
 Form::~Form() {
 
+}
+
+void    Form::beSigned(const Bureaucrat &obj) {
+    if (obj.getGrade() <= sign_it)
+        isSigned = true;
+    else
+        throw GradeTooLowException();
 }
 
 std::ostream &operator<<(std::ostream &out, const Form &obj) {

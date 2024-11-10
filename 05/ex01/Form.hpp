@@ -2,6 +2,9 @@
 #define FORM_HPP
 
 #include "iostream"
+#include "Bureaucrat.hpp"
+
+class Bureaucrat;
 
 class Form
 {
@@ -29,9 +32,11 @@ class Form
         const int & getSignIt() const;
         const int & getExecuteIt() const;
         //
-        // Form &operator=(const Form &copy);
+        void    beSigned(const Bureaucrat &obj);
+        //
+        Form &operator=(const Form &copy);
         Form(const std::string &_name, const int &_sign_it, const int &_execute_it);
-        // Form(const Form &copy);
+        Form(const Form &copy);
         Form();
         ~Form();
 };
