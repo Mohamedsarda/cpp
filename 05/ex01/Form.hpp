@@ -32,7 +32,7 @@ class Form
         const int & getSignIt() const;
         const int & getExecuteIt() const;
         //
-        void    beSigned(const Bureaucrat &obj);
+        void    beSigned(Bureaucrat &obj);
         //
         Form &operator=(const Form &copy);
         Form(const std::string &_name, const int &_sign_it, const int &_execute_it);

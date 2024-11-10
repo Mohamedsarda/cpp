@@ -59,7 +59,7 @@ Form::~Form() {
 
 }
 
-void    Form::beSigned(const Bureaucrat &obj) {
+void    Form::beSigned(Bureaucrat &obj) {
     if (obj.getGrade() <= sign_it)
         isSigned = true;
     else

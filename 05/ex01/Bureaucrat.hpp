@@ -30,7 +30,7 @@ class Bureaucrat
         void increment();
         void decrement();
         //
-        void signForm(const Form &obj);
+        void signForm(Form &obj);
         //
         Bureaucrat &operator=(const Bureaucrat &copy);
         //
