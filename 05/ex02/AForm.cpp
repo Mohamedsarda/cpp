@@ -51,7 +51,7 @@ AForm::AForm(const AForm &copy)
         isSigned = false;
 }
 
-AForm::AForm() : name("AForm"), sign_it(0), execute_it(0) {
+AForm::AForm() : name("AForm"), sign_it(150), execute_it(150) {
     isSigned = false;
 }
 
