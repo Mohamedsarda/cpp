@@ -40,7 +40,6 @@ Bureaucrat &Bureaucrat::operator=(const Bureaucrat &copy) {
 
 //
 Bureaucrat::Bureaucrat(std::string const _name, int _grade) : name(_name), grade(_grade) {
-    // std::cout << "" << std::endl;
     if (grade > 150)
         throw GradeTooLowException();
     if (grade < 1)

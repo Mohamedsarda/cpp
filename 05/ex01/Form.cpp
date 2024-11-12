@@ -31,7 +31,7 @@ const int & Form::getExecuteIt() const {
 
 Form &Form::operator=(const Form &copy) {
     if (this != &copy)
-        isSigned = false;
+        isSigned = copy.getIsSigned();
     return *this;
 }
 
@@ -48,7 +48,7 @@ Form::Form(const std::string &_name, const int &_sign_it, const int &_execute_it
 Form::Form(const Form &copy)
 : name(copy.getName()), sign_it(copy.getSignIt()), execute_it(copy.getExecuteIt())  {
     if (this != &copy)
-        isSigned = false;
+        isSigned = copy.getIsSigned();
 }
 
 Form::Form() : name("Form"), sign_it(0), execute_it(0) {
@@ -60,7 +60,7 @@ Form::~Form() {
 }
 
 void    Form::beSigned(Bureaucrat &obj) {
-    if (obj.getGrade() <= sign_it)
+    if (obj.getGrade() > sign_it)
         isSigned = true;
     else
         throw GradeTooLowException();

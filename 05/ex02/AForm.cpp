@@ -18,6 +18,10 @@ bool AForm::getIsSigned() const {
     return (isSigned);
 }
 
+void AForm::setIsSigned(bool _is_signed) {
+    isSigned = _is_signed;
+}
+
 const int & AForm::getSignIt() const {
     return (sign_it);
 }
@@ -31,7 +35,7 @@ const int & AForm::getExecuteIt() const {
 
 AForm &AForm::operator=(const AForm &copy) {
     if (this != &copy)
-        isSigned = false;
+        isSigned = copy.getIsSigned();
     return *this;
 }
 
@@ -48,7 +52,7 @@ AForm::AForm(const std::string &_name, const int &_sign_it, const int &_execute_
 AForm::AForm(const AForm &copy)
 : name(copy.getName()), sign_it(copy.getSignIt()), execute_it(copy.getExecuteIt())  {
     if (this != &copy)
-        isSigned = false;
+        isSigned = copy.getIsSigned();
 }
 
 AForm::AForm() : name("AForm"), sign_it(150), execute_it(150) {
@@ -60,7 +64,7 @@ AForm::~AForm() {
 }
 
 void    AForm::beSigned(Bureaucrat &obj) {
-    if (obj.getGrade() <= sign_it)
+    if (obj.getGrade() > sign_it)
         isSigned = true;
     else
         throw GradeTooLowException();

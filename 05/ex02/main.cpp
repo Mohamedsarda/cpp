@@ -1,26 +1,22 @@
 #include "Bureaucrat.hpp"
 #include "AForm.hpp"
+#include "ShrubberyCreationForm.hpp"
+#include "PresidentialPardonForm.hpp"
 
 int main()
 {
-    try
-    {
-        Bureaucrat bur1("med", 145);
-        std::cout << bur1 << std::endl;
-        bur1.decrement();
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
-    std::cout << "-----------------------------------------" << std::endl;
     try {
-        AForm form("sarda", 120, 45);
-        Bureaucrat bur1("med", 120);
-        form.beSigned(bur1);
-        std::cout << form << std::endl;
-        std::cout << "-----------------------------------------" << std::endl;
-        bur1.signForm(form);
+        AForm *form1 = new ShrubberyCreationForm;
+        AForm *form2 = new PresidentialPardonForm;
+        Bureaucrat bureaucrat("Bureaucrat", 146);
+        std::cout << *form1 << std::endl;
+        form1->beSigned(bureaucrat);
+        form1->execute(bureaucrat);
+        std::cout << "-" << std::endl;
+        std::cout << *form2 << std::endl;
+        form2->beSigned(bureaucrat);
+        form2->execute(bureaucrat);
+        std::cout << "-" << std::endl;
     } catch (const std::exception &e)
     {
         std::cerr << e.what() << '\n';

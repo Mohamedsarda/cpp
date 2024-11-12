@@ -29,8 +29,11 @@ class AForm
         //
         std::string const & getName() const;
         bool getIsSigned() const;
+        void setIsSigned(bool _is_signed);
         const int & getSignIt() const;
         const int & getExecuteIt() const;
+        //
+        virtual void execute(Bureaucrat const & executor) const = 0;
         //
         void    beSigned(Bureaucrat &obj);
         //
