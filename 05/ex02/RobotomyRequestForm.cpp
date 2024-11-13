@@ -7,6 +7,8 @@ void    RobotomyRequestForm::execute(Bureaucrat const & executor) const {
     {
 
     }
+    else
+        throw GradeTooLowException();
 }
 
 RobotomyRequestForm &RobotomyRequestForm::operator=(const RobotomyRequestForm &copy) {

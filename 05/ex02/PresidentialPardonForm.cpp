@@ -7,6 +7,8 @@ void    PresidentialPardonForm::execute(Bureaucrat const & executor) const {
     {
         std::cout << target << " has been pardoned by Zaphod Beeblebrox." << std::endl;
     }
+    else
+        throw GradeTooLowException();
 }
 
 PresidentialPardonForm &PresidentialPardonForm::operator=(const PresidentialPardonForm &copy) {

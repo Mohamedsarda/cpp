@@ -25,6 +25,7 @@ void    ShrubberyCreationForm::execute(Bureaucrat const & executor) const {
         out << "        |||        " << std::endl;
         out << "        |||        " << std::endl;
         std::cout << "The ASCII trees is inside : " << file << std::endl;
+        out.close();
     }
     else
         throw GradeTooLowException();
