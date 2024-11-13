@@ -1,7 +1,9 @@
 #include "ShrubberyCreationForm.hpp"
 
 void    ShrubberyCreationForm::execute(Bureaucrat const & executor) const {
-    if (executor.getGrade() >= getExecuteIt() && getIsSigned() == true)
+    if (getIsSigned() == false)
+        throw SignIsFalse();
+    if (executor.getGrade() >= getExecuteIt())
     {
         std::string file = getName() + "_shrubbery";
         std::ofstream out(file);

@@ -1,5 +1,9 @@
 #include "AForm.hpp"
 
+const char *AForm::SignIsFalse::what() const throw() {
+    return "Sign Is False Try Using beSigned Before";
+}
+
 const char *AForm::GradeTooLowException::what() const throw() {
     return "AForm Grade Too Low";
 }
