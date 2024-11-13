@@ -13,7 +13,8 @@ void    ShrubberyCreationForm::execute(Bureaucrat const & executor) const {
         std::ofstream out(file);
         if (!out.is_open())
         {
-            std::cout << "Couldn't create the file : " << file << std::endl;
+            std::cerr << "Couldn't create the file : " << file << std::endl;
+            return ;
         }
         out << "        &&&        " << std::endl;
         out << "       &&&&&       " << std::endl;

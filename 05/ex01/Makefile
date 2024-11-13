@@ -8,9 +8,9 @@ CC = c++
 
 all: $(NAME)
 
-$(NAME): $(OBJ) ./Bureaucrat.hpp Form.hpp
+$(NAME): $(OBJ)
 	$(CC)  -std=c++98 -Wall -Wextra -Werror $(OBJ) -o $@
-%.o : %.cpp
+%.o : %.cpp ./Bureaucrat.hpp Form.hpp
 	$(CC)  -std=c++98 -Wall -Wextra -Werror -c $< -o $@
 
 clean:

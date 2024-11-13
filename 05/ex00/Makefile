@@ -1,16 +1,16 @@
 NAME = Bureaucrat
 
 SRC = main.cpp Bureaucrat.cpp
- 
+
 OBJ = $(SRC:%.cpp=%.o)
 
 CC = c++
 
 all: $(NAME)
 
-$(NAME): $(OBJ) ./Bureaucrat.hpp
+$(NAME): $(OBJ)
 	$(CC)  -std=c++98 -Wall -Wextra -Werror $(OBJ) -o $@
-%.o : %.cpp
+%.o : %.cpp ./Bureaucrat.hpp
 	$(CC)  -std=c++98 -Wall -Wextra -Werror -c $< -o $@
 
 clean:
