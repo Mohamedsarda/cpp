@@ -1,5 +1,9 @@
 #include "RobotomyRequestForm.hpp"
 
+std::string const &RobotomyRequestForm::getTarget() const {
+    return target;
+}
+
 void    RobotomyRequestForm::execute(Bureaucrat const & executor) const {
     if (getIsSigned() == false)
         throw SignIsFalse();
