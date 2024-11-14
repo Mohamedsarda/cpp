@@ -5,14 +5,8 @@
 #include "RobotomyRequestForm.hpp"
 #include "Intern.hpp"
 
-void ff()
-{
-    system("leaks Form");
-}
-
 int main()
 {
-    atexit(ff);
     try {
         Intern intern;
         //ShrubberyCreationForm - PresidentialPardonForm - RobotomyRequestForm

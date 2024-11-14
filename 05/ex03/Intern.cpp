@@ -23,14 +23,22 @@ const char *Intern::FormNotFound::what() const throw(){
 
 AForm *Intern::makeForm(std::string type, std::string target) {
     AForm *tmp = NULL;
-    if (type == "RobotomyRequestForm")
-        tmp = new RobotomyRequestForm(target);
-    else if (type == "PresidentialPardonForm")
-        tmp = new PresidentialPardonForm(target);
-    else if (type == "ShrubberyCreationForm")
-        tmp = new ShrubberyCreationForm(target);
-    else
-        throw FormNotFound();
+    std::string forms[3] = {"RobotomyRequestForm", "PresidentialPardonForm", "ShrubberyCreationForm"};
+    int i = ((forms[0] == type) * 1) + ((forms[1] == type) * 2) + ((forms[2] == type) * 3);
+    switch (i)
+    {
+        case 1:
+            tmp = new RobotomyRequestForm(target);
+            break;
+        case 2:
+            tmp = new PresidentialPardonForm(target);
+            break;
+        case 3:
+            tmp = new ShrubberyCreationForm(target);
+            break;
+        default :
+            throw FormNotFound();
+    }
     std::cout << "Intern creates " << type << std::endl;
     return tmp;
 }
