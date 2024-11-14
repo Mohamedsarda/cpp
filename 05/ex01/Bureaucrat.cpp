@@ -18,17 +18,17 @@ int Bureaucrat::getGrade() const {
 
 //
 void Bureaucrat::increment() {
-    if (grade > 1)
-        grade--;
-    else
+    if (grade - 1 < 1)
         throw GradeTooHighException();
+    else
+        grade--;
 }
 
 void Bureaucrat::decrement() {
-    if (grade < 150)
-        grade++;
-    else
+    if (grade + 1 > 150)
         throw GradeTooLowException();
+    else
+        grade++;
 }
 
 //
