@@ -5,8 +5,14 @@
 #include "RobotomyRequestForm.hpp"
 #include "Intern.hpp"
 
+void ff()
+{
+    system("leaks Form");
+}
+
 int main()
 {
+    atexit(ff);
     try {
         Intern intern;
         //ShrubberyCreationForm - PresidentialPardonForm - RobotomyRequestForm
@@ -17,6 +23,7 @@ int main()
         delete form2;
         delete form3;
         AForm *form4 = intern.makeForm("RobotomyRequestFor", "msarda");
+        delete form4;
         form4->getName();
     } catch (const std::exception &e)
     {
