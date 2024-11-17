@@ -5,6 +5,12 @@ int main(int c, char **ar)
 {
     if (c != 2)
         return 1;
+    try {
+        ScalarConverter::convert(ar[1]);
+    } catch (char const *str)
+    {
+        std::cerr << str << std::endl;
+    }
     (void)ar;
     // std::cout << isChar("a") << std::endl;  // Expected: true (or 1)
     // std::cout << isChar("Z") << std::endl;  // Expected: true (or 1)
@@ -39,14 +45,14 @@ int main(int c, char **ar)
     // std::cout << isDouble("3.14.159") << std::endl;  // Expected: false (or 0)
     // std::cout << isDouble("12.34xyz") << std::endl;  // Expected: false (or 0)
     // //
-    std::cout << isDisplayAble('a') << std::endl;  // Expected: true (or 1)
-    std::cout << isDisplayAble('Z') << std::endl;  // Expected: true (or 1)
-    std::cout << isDisplayAble(' ') << std::endl;  // Expected: true (or 1)
-    std::cout << isDisplayAble('9') << std::endl;  // Expected: true (or 1)
-    std::cout << isDisplayAble('!') << std::endl;  // Expected: true (or 1)
-    std::cout << isDisplayAble('\n') << std::endl;  // Expected: false (or 0)
-    std::cout << isDisplayAble('\t') << std::endl;  // Expected: false (or 0)
-    std::cout << isDisplayAble('\r') << std::endl;  // Expected: false (or 0)
-    std::cout << isDisplayAble(127) << std::endl;   // Expected: false (or 0)
-    std::cout << isDisplayAble('\0') << std::endl;  // Expected: false (or 0)
+    // std::cout << isDisplayAble('a') << std::endl;  // Expected: true (or 1)
+    // std::cout << isDisplayAble('Z') << std::endl;  // Expected: true (or 1)
+    // std::cout << isDisplayAble(' ') << std::endl;  // Expected: true (or 1)
+    // std::cout << isDisplayAble('9') << std::endl;  // Expected: true (or 1)
+    // std::cout << isDisplayAble('!') << std::endl;  // Expected: true (or 1)
+    // std::cout << isDisplayAble('\n') << std::endl;  // Expected: false (or 0)
+    // std::cout << isDisplayAble('\t') << std::endl;  // Expected: false (or 0)
+    // std::cout << isDisplayAble('\r') << std::endl;  // Expected: false (or 0)
+    // std::cout << isDisplayAble(127) << std::endl;   // Expected: false (or 0)
+    // std::cout << isDisplayAble('\0') << std::endl;  // Expected: false (or 0)
 }

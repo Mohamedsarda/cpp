@@ -1,7 +1,8 @@
 #include "ScalarConverter.hpp"
 
 void ScalarConverter::convert(std::string const &str) {
-    (void)str;
+    std::cout << str << std::endl;
+
 }
 
 ScalarConverter::ScalarConverter() {
