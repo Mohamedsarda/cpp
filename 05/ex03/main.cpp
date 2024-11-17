@@ -17,8 +17,8 @@ int main()
         delete form2;
         delete form3;
         AForm *form4 = intern.makeForm("RobotomyRequestFor", "msarda");
-        delete form4;
         form4->getName();
+        delete form4;
     } catch (const std::exception &e)
     {
         std::cerr << e.what() << '\n';

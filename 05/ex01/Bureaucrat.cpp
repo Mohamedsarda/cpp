@@ -66,12 +66,12 @@ void Bureaucrat::signForm(Form &obj) {
         std::cout << *this << " signed " << std::endl << obj << std::endl;
     } catch (const std::exception &e)
     {
-        std::cerr << *this << " couldn’t sign ";
-        std::cerr << obj << " because ";
+        std::cerr << getName() << " couldn’t sign ";
+        std::cerr << obj.getName() << " because ";
         std::cerr << e.what() << std::endl;
     }
 }
-
+// 1 150
 //<name>, bureaucrat grade <grade>
 std::ostream &operator<<(std::ostream &out, const Bureaucrat &obj) {
     out << obj.getName() << ", bureaucrat grade " << obj.getGrade();

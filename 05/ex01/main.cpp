@@ -3,17 +3,6 @@
 
 int main()
 {
-    try
-    {
-        Bureaucrat bur1("med", 145);
-        std::cout << bur1 << std::endl;
-        bur1.decrement();
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
-    std::cout << "-----------------------------------------" << std::endl;
     try {
         Form form("sarda", 120, 45);
         Bureaucrat bur1("med", 120);
