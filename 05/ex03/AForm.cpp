@@ -68,7 +68,7 @@ AForm::~AForm() {
 }
 
 void    AForm::beSigned(Bureaucrat &obj) {
-    if (obj.getGrade() >= sign_it)
+    if (obj.getGrade() <= sign_it)
         isSigned = true;
     else
         throw GradeTooLowException();

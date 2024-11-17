@@ -3,7 +3,7 @@
 void    RobotomyRequestForm::execute(Bureaucrat const & executor) const {
     if (getIsSigned() == false)
         throw SignIsFalse();
-    if (executor.getGrade() >= getSignIt())
+    if (executor.getGrade() <= getExecuteIt())
     {
         std::cout << "Making some drilling noises..." << std::endl;
         std::srand((unsigned int)(std::time(0)));
