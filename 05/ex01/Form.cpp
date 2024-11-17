@@ -8,7 +8,6 @@ const char *Form::GradeTooHighException::what() const throw() {
     return "Form Grade Too High";
 }
 
-//
 
 std::string const & Form::getName() const {
     return (name);

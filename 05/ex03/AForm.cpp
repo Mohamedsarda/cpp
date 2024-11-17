@@ -35,8 +35,6 @@ const int & AForm::getExecuteIt() const {
 }
 
 
-//
-
 AForm &AForm::operator=(const AForm &copy) {
     if (this != &copy)
         isSigned = copy.getIsSigned();
