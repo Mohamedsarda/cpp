@@ -51,7 +51,7 @@ Form::Form(const Form &copy)
         isSigned = copy.getIsSigned();
 }
 
-Form::Form() : name("Form"), sign_it(0), execute_it(0) {
+Form::Form() : name("Form"), sign_it(150), execute_it(150) {
     isSigned = false;
 }
 
@@ -60,7 +60,7 @@ Form::~Form() {
 }
 
 void    Form::beSigned(Bureaucrat &obj) {
-    if (obj.getGrade() >= sign_it)
+    if (obj.getGrade() <= sign_it)
         isSigned = true;
     else
         throw GradeTooLowException();
