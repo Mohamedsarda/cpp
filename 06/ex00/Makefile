@@ -1,4 +1,4 @@
-NAME = Form
+NAME = ScalarConverter
 
 SRC = main.cpp ScalarConverter.cpp
 
