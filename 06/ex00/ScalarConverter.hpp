@@ -4,9 +4,10 @@
 #include "iostream"
 
 class ScalarConverter {
+    private:
+        ScalarConverter();
     public:
         static void convert(std::string const &str);
-        ScalarConverter();
         ScalarConverter(const ScalarConverter &copy);
         ScalarConverter &operator=(const ScalarConverter &copy);
         ~ScalarConverter();
