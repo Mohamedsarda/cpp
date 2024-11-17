@@ -3,7 +3,7 @@
 void    ShrubberyCreationForm::execute(Bureaucrat const & executor) const {
     if (getIsSigned() == false)
         throw SignIsFalse();
-    if (executor.getGrade() < getExecuteIt())
+    if (executor.getGrade() <= getExecuteIt())
     {
         std::string file = getName() + "_shrubbery";
         std::ofstream out(file);
