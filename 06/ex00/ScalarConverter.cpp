@@ -1,8 +1,28 @@
 #include "ScalarConverter.hpp"
+#include <sstream>
 
 void ScalarConverter::convert(std::string const &str) {
-    std::cout << str << std::endl;
+    int i = 0;
+    char c = '\0';
+    double d = 0.0;
+    float f = 0.0f;
+    std::stringstream string(str);
 
+    if (isChar(str))
+    {
+        char tmp;
+        string >> tmp;
+        if (string.fail())
+            throw "Something went wrong when trying to convert to char";
+        i = static_cast<int>(tmp);
+        d = static_cast<double>(i);
+        f = static_cast<float>(i);
+        c = static_cast<char>(i);
+    }
+    std::cout << c << std::endl;
+    std::cout << i << std::endl;
+    std::cout << d << std::endl;
+    std::cout << f << std::endl;
 }
 
 ScalarConverter::ScalarConverter() {

@@ -3,16 +3,14 @@
 
 int main(int c, char **ar)
 {
-    // if (c != 2)
-    //     return 1;
-    // try {
-    //     ScalarConverter::convert(ar[1]);
-    // } catch (char const *str)
-    // {
-    //     std::cerr << str << std::endl;
-    // }
-    (void)ar;
-    (void)c;
+    if (c != 2)
+        return 1;
+    try {
+        ScalarConverter::convert(ar[1]);
+    } catch (char const *str)
+    {
+        std::cerr << str << std::endl;
+    }
     // std::cout << isChar("a") << std::endl;  // Expected: true (or 1)
     // std::cout << isChar("Z") << std::endl;  // Expected: true (or 1)
     // std::cout << isChar("!") << std::endl;  // Expected: true (or 1)
