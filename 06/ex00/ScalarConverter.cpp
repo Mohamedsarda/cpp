@@ -5,35 +5,51 @@ void ScalarConverter::convert(std::string const &str) {
     char c = '\0';
     double d = 0.0;
     float f = 0.0f;
-    std::stringstream string(str);
+    std::stringstream tmp(str);
 
     if (isChar(str)) {
-            // Conversion from single character
-            c = str[0];
-            i = static_cast<int>(c);
-            d = static_cast<double>(i);
-            f = static_cast<float>(i);
-        } else if (isInt(str)) {
-            // Conversion from integer string
-            i = std::stoi(str);
-            d = static_cast<double>(i);
-            f = static_cast<float>(i);
-            c = (i >= 0 && i <= std::numeric_limits<char>::max() && isDisplayAble(static_cast<char>(i))) ? static_cast<char>(i) : '\0';
-        } else if (isFloat(str)) {
-            // Conversion from float string
-            f = std::stof(str);
-            d = static_cast<double>(f);
-            i = static_cast<int>(f);
-            c = (i >= 0 && i <= std::numeric_limits<char>::max() && isDisplayAble(static_cast<char>(i))) ? static_cast<char>(i) : '\0';
-        } else if (isDouble(str)) {
-            // Conversion from double string
-            d = std::stod(str);
-            f = static_cast<float>(d);
-            i = static_cast<int>(d);
-            c = (i >= 0 && i <= std::numeric_limits<char>::max() && isDisplayAble(static_cast<char>(i))) ? static_cast<char>(i) : '\0';
-        } else {
-            std::cout << "Invalid input format." << std::endl;
-        }
+        // Conversion from single character
+        char a;
+        tmp >> a;
+        if (tmp.fail())
+            throw "String Stream Failed To Convert";
+        c = static_cast<char>(a);
+        i = static_cast<int>(c);
+        d = static_cast<double>(i);
+        f = static_cast<float>(i);
+    } else if (isInt(str)) {
+        // Conversion from integer string
+        int a;
+        tmp >> a;
+        if (tmp.fail())
+            throw "String Stream Failed To Convert";
+        i = static_cast<int>(a);
+        d = static_cast<double>(i);
+        f = static_cast<float>(i);
+        c = (i >= 0 && i <= std::numeric_limits<char>::max() && isDisplayAble(static_cast<char>(i))) ? static_cast<char>(i) : '\0';
+    } else if (isFloat(str)) {
+        // Conversion from float string
+        float a;
+        tmp >> a;
+        if (tmp.fail())
+            throw "String Stream Failed To Convert";
+        f = static_cast<float>(a);
+        d = static_cast<double>(f);
+        i = static_cast<int>(f);
+        c = (i >= 0 && i <= std::numeric_limits<char>::max() && isDisplayAble(static_cast<char>(i))) ? static_cast<char>(i) : '\0';
+    } else if (isDouble(str)) {
+        // Conversion from double string
+        double a;
+        tmp >> a;
+        if (tmp.fail())
+            throw "String Stream Failed To Convert";
+        d = static_cast<double>(a);
+        f = static_cast<float>(d);
+        i = static_cast<int>(d);
+        c = (i >= 0 && i <= std::numeric_limits<char>::max() && isDisplayAble(static_cast<char>(i))) ? static_cast<char>(i) : '\0';
+    }
+    else
+        throw "Invalid input format.";
 
         // Output with controlled formatting
         size_t dotPos = str.find('.');
