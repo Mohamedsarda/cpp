@@ -1,5 +1,4 @@
 #include "ScalarConverter.hpp"
-#include <sstream>
 
 void ScalarConverter::convert(std::string const &str) {
     int i = 0;
@@ -8,21 +7,44 @@ void ScalarConverter::convert(std::string const &str) {
     float f = 0.0f;
     std::stringstream string(str);
 
-    if (isChar(str))
-    {
-        char tmp;
-        string >> tmp;
-        if (string.fail())
-            throw "Something went wrong when trying to convert to char";
-        i = static_cast<int>(tmp);
-        d = static_cast<double>(i);
-        f = static_cast<float>(i);
-        c = static_cast<char>(i);
-    }
-    std::cout << c << std::endl;
-    std::cout << i << std::endl;
-    std::cout << d << std::endl;
-    std::cout << f << std::endl;
+    if (isChar(str)) {
+            // Conversion from single character
+            c = str[0];
+            i = static_cast<int>(c);
+            d = static_cast<double>(i);
+            f = static_cast<float>(i);
+        } else if (isInt(str)) {
+            // Conversion from integer string
+            i = std::stoi(str);
+            d = static_cast<double>(i);
+            f = static_cast<float>(i);
+            c = (i >= 0 && i <= std::numeric_limits<char>::max() && isDisplayAble(static_cast<char>(i))) ? static_cast<char>(i) : '\0';
+        } else if (isFloat(str)) {
+            // Conversion from float string
+            f = std::stof(str);
+            d = static_cast<double>(f);
+            i = static_cast<int>(f);
+            c = (i >= 0 && i <= std::numeric_limits<char>::max() && isDisplayAble(static_cast<char>(i))) ? static_cast<char>(i) : '\0';
+        } else if (isDouble(str)) {
+            // Conversion from double string
+            d = std::stod(str);
+            f = static_cast<float>(d);
+            i = static_cast<int>(d);
+            c = (i >= 0 && i <= std::numeric_limits<char>::max() && isDisplayAble(static_cast<char>(i))) ? static_cast<char>(i) : '\0';
+        } else {
+            std::cout << "Invalid input format." << std::endl;
+        }
+
+        // Output with controlled formatting
+        size_t dotPos = str.find('.');
+        std::string afterDot = str.substr(dotPos + 1);
+        std::cout << "char: "
+                  << (c != '\0' && isDisplayAble(c) ? "'" + std::string(1, c) + "'" : "Non displayable")
+                  << '\n';
+        std::cout << "int: " << i << '\n';
+        std::cout << std::fixed << std::setprecision(afterDot.length());
+        std::cout << "float: " << f << "f\n";
+        std::cout << "double: " << d << '\n';
 }
 
 ScalarConverter::ScalarConverter() {
@@ -116,11 +138,11 @@ bool isDouble(const std::string &str) {
     }
 
     if (!hasDigit) return false;
-    if (points > 0) {
-        size_t dotPos = str.find('.');
-        std::string afterDot = str.substr(dotPos + 1);
-        if (afterDot.length() > 10) return false;
-    }
+    // if (points > 0) {
+    //     size_t dotPos = str.find('.');
+    //     std::string afterDot = str.substr(dotPos + 1);
+    //     if (afterDot.length() > 10) return false;
+    // }
     return true;
 }
 

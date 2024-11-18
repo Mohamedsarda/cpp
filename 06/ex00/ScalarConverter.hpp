@@ -2,6 +2,8 @@
 #define SCALARCONVERTER_HPP
 
 #include "iostream"
+#include <sstream>
+#include <iomanip>
 
 class ScalarConverter {
     private:
