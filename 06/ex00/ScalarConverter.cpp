@@ -58,9 +58,8 @@ void ScalarConverter::convert(std::string const &str) {
                   << (c != '\0' && isDisplayAble(c) ? "'" + std::string(1, c) + "'" : "Non displayable")
                   << '\n';
         std::cout << "int: " << i << '\n';
-        std::cout << std::fixed << std::setprecision(afterDot.length());
-        std::cout << "float: " << f << "f\n";
-        std::cout << "double: " << d << '\n';
+        std::cout << "float: " << f << ((std::floor(f) == f) ? ".0f" : "f") << "\n";
+        std::cout << "double: " << d << ((std::floor(d) == d) ? ".0" : "") << '\n';
 }
 
 ScalarConverter::ScalarConverter() {
