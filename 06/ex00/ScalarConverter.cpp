@@ -1,66 +1,86 @@
 #include "ScalarConverter.hpp"
-
+std::string intToString(int value) {
+    std::ostringstream oss;
+    oss << value;
+    return oss.str();
+}
 void ScalarConverter::convert(std::string const &str) {
     int i = 0;
     char c = '\0';
     double d = 0.0;
     float f = 0.0f;
-    std::stringstream tmp(str);
 
-    if (isChar(str)) {
-        // Conversion from single character
-        char a;
-        tmp >> a;
-        if (tmp.fail())
-            throw "String Stream Failed To Convert";
-        c = static_cast<char>(a);
-        i = static_cast<int>(c);
-        d = static_cast<double>(i);
-        f = static_cast<float>(i);
-    } else if (isInt(str)) {
-        // Conversion from integer string
-        int a;
-        tmp >> a;
-        if (tmp.fail())
-            throw "String Stream Failed To Convert";
-        i = static_cast<int>(a);
-        d = static_cast<double>(i);
-        f = static_cast<float>(i);
-        c = (i >= 0 && i <= std::numeric_limits<char>::max() && isDisplayAble(static_cast<char>(i))) ? static_cast<char>(i) : '\0';
-    } else if (isFloat(str)) {
-        // Conversion from float string
-        float a;
-        tmp >> a;
-        if (tmp.fail())
-            throw "String Stream Failed To Convert";
-        f = static_cast<float>(a);
-        d = static_cast<double>(f);
-        i = static_cast<int>(f);
-        c = (i >= 0 && i <= std::numeric_limits<char>::max() && isDisplayAble(static_cast<char>(i))) ? static_cast<char>(i) : '\0';
-    } else if (isDouble(str)) {
-        // Conversion from double string
-        double a;
-        tmp >> a;
-        if (tmp.fail())
-            throw "String Stream Failed To Convert";
-        d = static_cast<double>(a);
-        f = static_cast<float>(d);
-        i = static_cast<int>(d);
-        c = (i >= 0 && i <= std::numeric_limits<char>::max() && isDisplayAble(static_cast<char>(i))) ? static_cast<char>(i) : '\0';
+    // Handle special cases for floats and doubles
+    if (str == "-inff" || str == "-inf") {
+        f = -1.0f / 0.0f; // Negative infinity
+        d = -1.0 / 0.0;   // Negative infinity
+    } else if (str == "+inff" || str == "+inf") {
+        f = 1.0f / 0.0f;  // Positive infinity
+        d = 1.0 / 0.0;    // Positive infinity
+    } else if (str == "nanf" || str == "nan") {
+        f = 0.0f / 0.0f;  // NaN
+        d = 0.0 / 0.0;    // NaN
+    } else {
+        // Process regular conversions
+        std::stringstream tmp(str);
+
+        if (isInt(str)) {
+            int a;
+            tmp >> a;
+            if (tmp.fail())
+                throw "String Stream Failed To Convert";
+            i = a;
+            d = static_cast<double>(i);
+            f = static_cast<float>(i);
+            c = (i >= 0 && i <= 127 && isDisplayAble(static_cast<char>(i))) ? static_cast<char>(i) : '\0';
+        } else if (isChar(str)) {
+            char a;
+            tmp >> a;
+            if (tmp.fail())
+                throw "String Stream Failed To Convert";
+            c = a;
+            i = static_cast<int>(c);
+            d = static_cast<double>(i);
+            f = static_cast<float>(i);
+        } else if (isFloat(str)) {
+            float a;
+            tmp.str(str.substr(0, str.length() - 1));
+            tmp >> a;
+            if (tmp.fail())
+                throw "String Stream Failed To Convert";
+            f = a;
+            d = static_cast<double>(f);
+            i = static_cast<int>(f);
+            c = (i >= 0 && i <= 127 && isDisplayAble(static_cast<char>(i))) ? static_cast<char>(i) : '\0';
+        } else if (isDouble(str)) {
+            double a;
+            tmp >> a;
+            if (tmp.fail())
+                throw "String Stream Failed To Convert";
+            d = a;
+            f = static_cast<float>(d);
+            i = static_cast<int>(d);
+            c = (i >= 0 && i <= 127 && isDisplayAble(static_cast<char>(i))) ? static_cast<char>(i) : '\0';
+        } else {
+            throw "Invalid input format.";
+        }
     }
-    else
-        throw "Invalid input format.";
 
-        // Output with controlled formatting
-        size_t dotPos = str.find('.');
-        std::string afterDot = str.substr(dotPos + 1);
-        std::cout << "char: "
-                  << (c != '\0' && isDisplayAble(c) ? "'" + std::string(1, c) + "'" : "Non displayable")
-                  << '\n';
-        std::cout << "int: " << i << '\n';
-        std::cout << "float: " << f << ((std::floor(f) == f) ? ".0f" : "f") << "\n";
-        std::cout << "double: " << d << ((std::floor(d) == d) ? ".0" : "") << '\n';
+    // Output with controlled formatting
+    std::cout << "char: "
+              << (c != '\0' && isDisplayAble(c) ? "'" + std::string(1, c) + "'" : "Non displayable")
+              << std::endl;
+    std::cout << "int: "
+              << ((d == 1.0 / 0.0 || d == -1.0 / 0.0 || d != d) ? "impossible" : intToString(i))
+              << std::endl;
+    std::cout << "float: " << f
+              << ((f == static_cast<int>(f) && f == f && f != 1.0f / 0.0f && f != -1.0f / 0.0f) ? ".0f" : "f")
+              << "\n";
+    std::cout << "double: " << d
+              << ((d == static_cast<int>(d) && d == d && d != 1.0 / 0.0 && d != -1.0 / 0.0) ? ".0" : "")
+              << std::endl;
 }
+
 
 ScalarConverter::ScalarConverter() {
 
@@ -153,11 +173,6 @@ bool isDouble(const std::string &str) {
     }
 
     if (!hasDigit) return false;
-    // if (points > 0) {
-    //     size_t dotPos = str.find('.');
-    //     std::string afterDot = str.substr(dotPos + 1);
-    //     if (afterDot.length() > 10) return false;
-    // }
     return true;
 }
 
