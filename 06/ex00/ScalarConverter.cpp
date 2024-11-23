@@ -1,16 +1,16 @@
 #include "ScalarConverter.hpp"
 std::string intToString(int value) {
-    std::ostringstream oss;
+    std::stringstream oss;
     oss << value;
     return oss.str();
 }
+
 void ScalarConverter::convert(std::string const &str) {
     int i = 0;
     char c = '\0';
     double d = 0.0;
     float f = 0.0f;
 
-    // Handle special cases for floats and doubles
     if (str == "-inff" || str == "-inf") {
         f = -1.0f / 0.0f; // Negative infinity
         d = -1.0 / 0.0;   // Negative infinity

@@ -9,7 +9,9 @@ int main() {
     t_data *tmp2 = Serializer::deserialize(res);
     if (&tmp1 == tmp2)
     {
-        std::cout << "the two pointers are equal" << std::endl;
+        std::cout << "the two addresses are equal" << std::endl;
+        std::cout << "tmp1 : " << &tmp1 << std::endl;
+        std::cout << "tmp2 : " << tmp2 << std::endl;
         return 0;
     }
     else
