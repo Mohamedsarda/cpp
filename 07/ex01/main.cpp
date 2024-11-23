@@ -1,23 +1,33 @@
 #include "iter.hpp"
 
-template <typename I>
-void ft_print(const I &a)
+class Awesome
 {
-    std::cout << a << " ";
+  public:
+    Awesome( void ) : _n( 42 ) { return; }
+    int get( void ) const { return this->_n; }
+  private:
+    int _n;
+};
+
+std::ostream & operator<<( std::ostream & o, Awesome const & rhs )
+{
+  o << rhs.get();
+  return o;
 }
 
-template <typename I>
-void ft_addone(I &a)
+template< typename T >
+void print( T& x )
 {
-    a++;
+  std::cout << x << std::endl;
+  return;
 }
 
-int main()
-{
-    int arr[] = {0, 10, -1, 12, 15};
-    ::iter(arr, 5, ft_print);
-    std::cout << std::endl;
-    ::iter(arr, 5, static_cast<void(*)(int&)>(ft_addone));
-    ::iter(arr, 5, ft_print);
-    std::cout << std::endl;
+int main() {
+  int tab[] = { 0, 1, 2, 3, 4 };
+  Awesome tab2[5];
+
+  iter( tab, 5, print<const int> );
+  iter( tab2, 5, print<Awesome> );
+
+  return 0;
 }

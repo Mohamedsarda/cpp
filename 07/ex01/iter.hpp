@@ -3,20 +3,11 @@
 
 #include "iostream"
 
-template <typename I> void iter(I *arr, size_t len, void (*func)(I &)) {
+template <typename I, typename T> void iter(I *arr, size_t len, void (*func)(T &)) {
     if (!arr || !func)
         return ;
-    size_t i = 0;
-    while (i < len)
-        func(arr[i++]);
-}
-
-template <typename I> void iter(I *arr, size_t len, void (*func)(const I &)) {
-    if (!arr || !func)
-        return ;
-    size_t i = 0;
-    while (i < len)
-        func(arr[i++]);
+    for (size_t i = 0; i < len ; i++)
+        func(arr[i]);
 }
 
 #endif
