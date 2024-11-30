@@ -20,8 +20,8 @@ int main(int, char**)
         Array<int> test(tmp);
         for (size_t i = 0; i < 3; i++)
         {
-            std::cout << " tmp : " << tmp[i] << " ";
-            std::cout << " test : " << test[i] << std::endl;
+            std::cout << "tmp : " << tmp[i] << " ";
+            std::cout << "test : " << test[i] << std::endl;
         }
     }
 

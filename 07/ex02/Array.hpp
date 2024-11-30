@@ -13,7 +13,7 @@ template <typename A> class Array
         class ErrorSize : public std::exception {
             public:
                 const char *what() const throw() {
-                    return "Index should be bigger then 0 and smaller then the size";
+                    return "Index is out of bounds";
                 }
         };
         unsigned int getSize() const {
