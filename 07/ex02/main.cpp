@@ -18,6 +18,11 @@ int main(int, char**)
     {
         Array<int> tmp = numbers;
         Array<int> test(tmp);
+        for (size_t i = 0; i < 3; i++)
+        {
+            std::cout << " tmp : " << tmp[i] << " ";
+            std::cout << " test : " << test[i] << std::endl;
+        }
     }
 
     for (int i = 0; i < MAX_VAL; i++)
