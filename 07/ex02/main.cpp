@@ -3,13 +3,8 @@
 
 #define MAX_VAL 750
 
-void ff() {
-    system("leaks Array");
-}
-
 int main(int, char**)
 {
-    atexit(ff);
     Array<int> numbers(MAX_VAL);
     int* mirror = new int[MAX_VAL];
     srand(time(NULL));
