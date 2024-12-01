@@ -4,65 +4,67 @@
 #include <exception>
 #include <iostream>
 
-template <typename A> class Array
+template <typename A>
+class Array
 {
     private:
         unsigned int size;
         A *arr;
+
     public:
         class ErrorSize : public std::exception {
-            public:
-                const char *what() const throw() {
-                    return "Index is out of bounds";
-                }
+        public:
+            const char *what() const throw() {
+                return "Index is out of bounds";
+            }
         };
+
         unsigned int getSize() const {
-            return (size);
+            return size;
         }
 
-        //
-        Array() {
-            size = 0;
-            arr = new A[0];
+        // Default constructor
+        Array() : size(0), arr(new A[0]) {}
+
+        // Parameterized constructor
+        Array(unsigned int _size) : size(_size), arr(new A[_size]) {}
+
+        // Copy constructor
+        Array(const Array &copy) : size(copy.size), arr(new A[copy.size]) {
+            for (unsigned int i = 0; i < size; i++)
+                arr[i] = copy.arr[i];
         }
 
-        Array(unsigned int _size) {
-            size = _size;
-            arr = new A[_size];
-        }
-
-        Array(Array &copy) {
-            size = copy.size;
-            arr = NULL;
-            *this = copy;
-        }
-
-        Array  &operator=(Array  &copy) {
-            if (this != &copy)
-            {
-                if (arr != NULL)
-                    delete[] arr;
+        // Assignment operator
+        Array &operator=(const Array &copy) {
+            if (this != &copy) {
+                delete[] arr;
                 size = copy.size;
                 arr = new A[size];
-                for (size_t i = 0; i < copy.size; i++)
+                for (unsigned int i = 0; i < size; i++)
                     arr[i] = copy.arr[i];
             }
             return *this;
         }
 
+        // Subscript operator
         A &operator[](unsigned int i) {
-            if (i < 0 || i >= size)
+            if (i >= size)
                 throw ErrorSize();
             return arr[i];
         }
 
+        // Const subscript operator
+        const A &operator[](unsigned int i) const {
+            if (i >= size)
+                throw ErrorSize();
+            return arr[i];
+        }
+
+        // Destructor
         ~Array() {
             delete[] arr;
         }
-
-
 };
-
-
 
 #endif

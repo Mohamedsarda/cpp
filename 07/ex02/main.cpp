@@ -54,7 +54,7 @@ int main(int, char**)
     {
         numbers[i] = rand();
     }
-    for (int i = 0; i < (MAX_VAL / 125); i++)
+    for (int i = 0; i < 3; i++)
     {
         std::cout << "numbers : " << numbers[i] << " ";
         std::cout << "mirror : " << mirror[i] << std::endl;
