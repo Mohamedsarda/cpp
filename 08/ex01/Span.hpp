@@ -15,7 +15,8 @@ class Span {
         Span(const Span &copy);
         Span &operator=(const Span &copy);
         //
-        void addNumbers(std::vector<int>::iterator begin, std::vector<int>::iterator end);
+        void addNumber(std::vector<int>::iterator begin, std::vector<int>::iterator end);
+        void addNumber(int number);
 };
 
 #endif
