@@ -3,6 +3,8 @@
 
 #include "iostream"
 #include <vector>
+#include <map>
+#include <algorithm>
 
 template <typename T>
 typename T::const_iterator easyfind(T& container, int toFind) {
