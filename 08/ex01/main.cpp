@@ -14,5 +14,17 @@ int main()
    } catch (const std::exception &e) {
 		std::cout << e.what() << std::endl;
    }
+   std::cout << "-----" << std::endl;
+   try {
+        Span tmp = Span(5);
+        std::vector<int> vec;
+        for (int i = 0; i < 5; i++)
+            vec.push_back(i * 2);
+        tmp.addNumber(vec.begin(), vec.end());
+        std::cout << tmp.shortestSpan() << std::endl;
+		std::cout << tmp.longestSpan() << std::endl;
+   } catch (const std::exception &e) {
+        std::cout << e.what() << std::endl;
+   }
 	return 0;
 }
