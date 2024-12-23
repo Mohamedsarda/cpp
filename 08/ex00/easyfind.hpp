@@ -4,14 +4,15 @@
 #include "iostream"
 #include <vector>
 #include <map>
-#include <algorithm>
 
 template <typename T>
 typename T::const_iterator easyfind(T& container, int toFind) {
-    typename T::const_iterator it = std::find(container.begin(), container.end(), toFind);
-    if (it == container.end())
-        throw std::runtime_error("Element not found");
-    return it;
+    typename T::const_iterator begin = container.begin();
+    typename T::const_iterator end = container.end();
+    for (; begin != end ; begin++)
+        if (*begin == toFind)
+            return begin;
+    throw std::runtime_error("Element not found");
 }
 
 

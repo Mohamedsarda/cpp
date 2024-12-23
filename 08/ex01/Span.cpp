@@ -41,15 +41,15 @@ void Span::addNumber(std::vector<int>::iterator begin, std::vector<int>::iterato
 }
 
 int  Span::longestSpan() {
-    std::vector<int>::iterator max_value = std::max_element(container.begin(), container.end());
-    std::vector<int>::iterator min_value = std::min_element(container.begin(), container.end());
-    return *max_value - *min_value;
+    std::vector<int>::const_iterator maxValue = ft_max_value(container);
+    std::vector<int>::const_iterator minValue = ft_min_value(container);
+    return *maxValue - *minValue;
 }
 
 int Span::shortestSpan() {
     if (container.size() < 2)
         throw std::logic_error("Not enough elements to calculate a span");
-    std::sort(container.begin(), container.end());
+    ft_bubble_sort(container);
     int shortest = 2147483647;
     for (size_t i = 1; i < container.size(); ++i) {
         int diff = container[i] - container[i - 1];
