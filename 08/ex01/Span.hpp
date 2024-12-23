@@ -52,6 +52,8 @@ typename T::const_iterator ft_max_value(const T& container)
 template <typename T>
 void ft_bubble_sort(T& container)
 {
+    if (container.empty())
+        throw std::runtime_error("Container Empty");
     typename T::iterator begin;
     typename T::iterator next;
 
