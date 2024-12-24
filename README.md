@@ -8,7 +8,6 @@ This repository contains my solutions for the C++ modules (cpp00 to cpp08) as pa
 - [Modules Breakdown](#modules-breakdown)
 - [Usage](#usage)
 - [Contributing](#contributing)
-- [License](#license)
 
 ---
 
@@ -62,8 +61,4 @@ Each module consists of exercises and projects that focus on specific topics in 
 - **Goal:** Learn and apply STL containers and algorithms in practical scenarios.
 
 
----
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
