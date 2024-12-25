@@ -24,44 +24,5 @@ class Span {
         int  shortestSpan();
 };
 
-template <typename T>
-typename T::const_iterator ft_min_value(const T& container)
-{
-    if (container.empty())
-        throw std::runtime_error("Container Empty");
-    typename T::const_iterator min_value = container.begin();
-    for (typename T::const_iterator begin = container.begin(); begin != container.end(); ++begin)
-        if (*begin < *min_value)
-            min_value = begin;
-    return min_value;
-}
-
-template <typename T>
-typename T::const_iterator ft_max_value(const T& container)
-{
-    if (container.empty())
-        throw std::runtime_error("Container Empty");
-    typename T::const_iterator max_value = container.begin();
-    for (typename T::const_iterator begin = container.begin(); begin != container.end(); ++begin)
-        if (*begin > *max_value)
-            max_value = begin;
-    return max_value;
-}
-
-template <typename T>
-void ft_bubble_sort(T& container)
-{
-    if (container.empty())
-        throw std::runtime_error("Container Empty");
-    typename T::iterator begin;
-    typename T::iterator next;
-
-    for (begin = container.begin(); begin != container.end(); ++begin)
-    {
-        for (next = container.begin(); next + 1 != container.end(); ++next)
-            if (*next > *(next + 1))
-                std::swap(*next, *(next + 1));
-    }
-}
 
 #endif
