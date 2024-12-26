@@ -50,7 +50,7 @@ int Span::shortestSpan() {
     if (container.size() < 2)
         throw std::logic_error("Not enough elements to calculate a span");
     std::sort(container.begin(), container.end());
-    int shortest = 2147483647;
+    int shortest = std::numeric_limits<int>::max();
     for (size_t i = 1; i < container.size(); ++i) {
         int diff = container[i] - container[i - 1];
         if (diff < shortest) {
