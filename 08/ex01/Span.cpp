@@ -60,3 +60,11 @@ int Span::shortestSpan() {
 
     return shortest;
 }
+
+void     Span::ft_add_many_numbers() {
+    if (RANGE <= 0)
+        return ;
+    std::srand(time(0));
+    for (int i = 0; i < RANGE; i++)
+        container.push_back(std::rand());
+}

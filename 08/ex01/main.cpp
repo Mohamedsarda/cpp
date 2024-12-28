@@ -26,5 +26,16 @@ int main()
    } catch (const std::exception &e) {
         std::cout << e.what() << std::endl;
    }
+   std::cout << "----------" << std::endl;
+   {
+        try {
+            Span tmp = Span(RANGE);
+            tmp.ft_add_many_numbers();
+            std::cout << tmp.shortestSpan() << std::endl;
+            std::cout << tmp.longestSpan() << std::endl;
+        } catch (const std::exception &e) {
+                std::cout << e.what() << std::endl;
+        }
+   }
 	return 0;
 }

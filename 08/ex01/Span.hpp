@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <limits>
 
+#define RANGE  1000000
 
 class Span {
     private:
@@ -23,6 +24,7 @@ class Span {
         //
         int  longestSpan();
         int  shortestSpan();
+        void     ft_add_many_numbers();
 };
 
 
