@@ -14,7 +14,7 @@ int main()
    } catch (const std::exception &e) {
 		std::cout << e.what() << std::endl;
    }
-   std::cout << "-----" << std::endl;
+   std::cout << "----------" << std::endl;
    try {
         Span tmp = Span(5);
         std::vector<int> vec;
