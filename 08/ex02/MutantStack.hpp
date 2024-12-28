@@ -14,7 +14,7 @@ class MutantStack : public std::stack< T, Container>
     public:
         MutantStack() {};
         ~MutantStack() {};
-        MutantStack(const MutantStack &copy) : std::stack<T>(copy) { }
+        MutantStack(const MutantStack &copy) : std::stack<T, Container>(copy) { }
         MutantStack&    operator=(const MutantStack& others) {
             std::stack< T, Container >::operator=(others);
             return *this;
