@@ -52,6 +52,13 @@ int main()
         for (;listIt != listEnd; listIt++)
             std::cout << *listIt << "\t";
         std::cout << std::endl;
+        MutantStack<std::string, std::list<std::string> > tmp(listStack);
+        MutantStack<std::string, std::list<std::string> >::iterator listItTmp = tmp.begin();
+        MutantStack<std::string, std::list<std::string> >::iterator listEndTmp = tmp.end();
+        for (;listItTmp != listEndTmp; listItTmp++)
+            std::cout << *listItTmp << "\t";
+        std::cout << std::endl;
+        std::cout << tmp.top() << std::endl;
     }
     return 0;
 }
