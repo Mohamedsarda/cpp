@@ -15,14 +15,17 @@ class BitcoinExchange
         BitcoinExchange(const BitcoinExchange &copy);
         BitcoinExchange &operator=(const BitcoinExchange &copy);
         ~BitcoinExchange();
-        void readFromCsv(std::string const &fileName);
         //
+        void Start(std::string const &arg);
+        void print();
+        void readFromCsv(std::string const &fileName);
         std::map<std::string, double> getData();
-        void    fill_data_map(const std::ifstream &out);
 };
 
 bool has30Days(int month);
 bool has31Days(int month);
 bool isLeapYear(int year);
+void ft_fill_data(std::ifstream &out, std::map<std::string, double> &map, std::string &line);
+void ft_check_date(const std::string& line);
 
 #endif
