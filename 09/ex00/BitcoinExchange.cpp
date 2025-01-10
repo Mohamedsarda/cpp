@@ -35,7 +35,7 @@ void BitcoinExchange::Start(std::string const &arg) {
 }
 
 void BitcoinExchange::readFromCsv(std::string const &fileName) {
-    std::ifstream out(fileName);
+    std::ifstream out(fileName.c_str());
     if (!out)
         throw std::runtime_error("can't open file : " + fileName);
     std::string line;
@@ -52,6 +52,54 @@ void BitcoinExchange::readFromCsv(std::string const &fileName) {
         throw std::runtime_error(fileName + " there is not data in this file");
     if (fileName == "data.csv")
         ft_fill_data(out, this->data, line);
+    else {
+        bool isError;
+        while (std::getline(out, line)) {
+            isError = false;
+            std::stringstream ss(line);
+            std::string date;
+            std::getline(ss, date, ' ');
+            try {
+                ft_check_date(date);
+            } catch (std::exception &e) {
+                std::cerr << e.what() << std::endl;
+                isError = true;
+            }
+            std::string value, mtp;
+            double valueDouble;
+            ss >> mtp >> value;
+            std::stringstream ss1(value);
+            ss1 >> valueDouble;
+            if (valueDouble < 0) {
+                if (isError)
+                   std::cout << "Error: not a positive number. " << valueDouble << std::endl;
+            }
+            else {
+                if (valueDouble > std::numeric_limits<int>::max()) {
+                    std::cout << "Error: too large a number." << std::endl;
+                    break;
+                }
+                std::string outPutDate;
+                double outPutValue;
+                std::map<std::string, double>::iterator it = data.begin();
+                for (; it != data.end(); it++)
+                {
+                    if (it->first == date) {
+                        outPutDate = it->first;
+                        outPutValue = it->second;
+                    }
+
+                }
+                if (it == data.end()) {
+                    std::map<std::string, double>::iterator Upper_bound = data.upper_bound(date);
+                    outPutDate = Upper_bound->first;
+                    outPutValue = Upper_bound->second;
+                }
+                std::cout << outPutDate << " => " << outPutValue << " = " << valueDouble * outPutValue << std::endl;
+            }
+            line.clear();
+        }
+    }
     out.close();
     return ;
 }

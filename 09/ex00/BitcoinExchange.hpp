@@ -5,8 +5,10 @@
 #include <fstream>
 #include <map>
 #include <sstream>
+#include <algorithm>
+#include <limits>
 
-class BitcoinExchange 
+class BitcoinExchange
 {
     private:
         std::map<std::string, double> data;
