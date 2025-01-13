@@ -19,15 +19,18 @@ class BitcoinExchange
         ~BitcoinExchange();
         //
         void Start(std::string const &arg);
+        void parseTransaction(const std::string &line);
         void print();
         void readFromCsv(std::string const &fileName);
+        void ft_fill_data(std::ifstream &file, std::map<std::string, double> &map);
+        void ft_check_date(const std::string &line);
         std::map<std::string, double> getData();
 };
 
 bool has30Days(int month);
 bool has31Days(int month);
 bool isLeapYear(int year);
-void ft_fill_data(std::ifstream &out, std::map<std::string, double> &map, std::string &line);
-void ft_check_date(const std::string& line);
+// void ft_fill_data(std::ifstream &out, std::map<std::string, double> &map, std::string &line);
+// void ft_check_date(const std::string& line);
 
 #endif

@@ -9,158 +9,128 @@ bool has31Days(int month) {
 }
 
 bool isLeapYear(int year) {
-    return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0) ? true : false;
+    return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
 }
 
-BitcoinExchange::BitcoinExchange() {
-
-}
+BitcoinExchange::BitcoinExchange() {}
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange &copy) {
-    (void)copy;
+    data = copy.data;
 }
 
 BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &copy) {
-    (void)copy;
+    if (this != &copy)
+        data = copy.data;
     return *this;
 }
 
-BitcoinExchange::~BitcoinExchange() {
+BitcoinExchange::~BitcoinExchange() {}
 
-}
-
-void BitcoinExchange::Start(std::string const &arg) {
+void BitcoinExchange::Start(const std::string &arg) {
     readFromCsv("data.csv");
     readFromCsv(arg);
 }
 
-void BitcoinExchange::readFromCsv(std::string const &fileName) {
-    std::ifstream out(fileName.c_str());
-    if (!out)
-        throw std::runtime_error("can't open file : " + fileName);
-    std::string line;
-    if (std::getline(out, line).fail()) {
-        out.close();
-        throw std::runtime_error("can't read from : " + fileName);
-    }
-    if ((fileName == "data.csv" && line != "date,exchange_rate") || (fileName != "data.csv" && line != "date | value")) {
-        out.close();
-        throw std::runtime_error("Please Check The header of " + fileName);
-    }
-    out.clear();
-    if (out.eof())
-        throw std::runtime_error(fileName + " there is not data in this file");
-    if (fileName == "data.csv")
-        ft_fill_data(out, this->data, line);
-    else {
-        bool isError;
-        while (std::getline(out, line)) {
-            isError = false;
-            std::stringstream ss(line);
-            std::string date;
-            std::getline(ss, date, ' ');
-            try {
-                ft_check_date(date);
-            } catch (std::exception &e) {
-                std::cerr << e.what() << std::endl;
-                isError = true;
-            }
-            std::string value, mtp;
-            double valueDouble;
-            ss >> mtp >> value;
-            std::stringstream ss1(value);
-            ss1 >> valueDouble;
-            if (valueDouble < 0) {
-                if (isError)
-                   std::cout << "Error: not a positive number. " << valueDouble << std::endl;
-            }
-            else {
-                if (valueDouble > std::numeric_limits<int>::max()) {
-                    std::cout << "Error: too large a number." << std::endl;
-                    break;
-                }
-                std::string outPutDate;
-                double outPutValue;
-                std::map<std::string, double>::iterator it = data.begin();
-                for (; it != data.end(); it++)
-                {
-                    if (it->first == date) {
-                        outPutDate = it->first;
-                        outPutValue = it->second;
-                    }
+void BitcoinExchange::readFromCsv(const std::string &fileName) {
+    std::ifstream file(fileName.c_str());
+    if (!file.is_open())
+        throw std::runtime_error("Cannot open file: " + fileName);
 
-                }
-                if (it == data.end()) {
-                    std::map<std::string, double>::iterator Upper_bound = data.upper_bound(date);
-                    outPutDate = Upper_bound->first;
-                    outPutValue = Upper_bound->second;
-                }
-                std::cout << outPutDate << " => " << outPutValue << " = " << valueDouble * outPutValue << std::endl;
-            }
-            line.clear();
+    std::string header;
+    if (!std::getline(file, header) ||
+        ((fileName == "data.csv" && header != "date,exchange_rate") ||
+         (fileName != "data.csv" && header != "date | value"))) {
+        throw std::runtime_error("Invalid header in file: " + fileName);
+    }
+
+    if (fileName == "data.csv")
+        ft_fill_data(file, data);
+    else {
+        std::string line;
+        while (std::getline(file, line)) {
+            parseTransaction(line);
         }
     }
-    out.close();
-    return ;
 }
 
-void ft_fill_data(std::ifstream &out, std::map<std::string, double> &map, std::string &line) {
-    while (std::getline(out, line)) {
+void BitcoinExchange::ft_fill_data(std::ifstream &file, std::map<std::string, double> &map) {
+    std::string line;
+    while (std::getline(file, line)) {
         std::stringstream ss(line);
         std::string date;
-        std::getline(ss, date, ',');
         double value;
+
+        std::getline(ss, date, ',');
         ss >> value;
+
         ft_check_date(date);
         map[date] = value;
-        line.clear();
     }
 }
 
-void ft_check_date(const std::string& line) {
-    std::string year, month, day;
+void BitcoinExchange::parseTransaction(const std::string &line) {
     std::stringstream ss(line);
-    std::getline(ss, year, '-');
-    std::getline(ss, month, '-');
-    std::getline(ss, day, '-');
+    std::string date, valueStr, separator;
+    double value;
 
-    if (year.length() != 4 || month.length() != 2 || day.length() != 2)
-        throw std::runtime_error("Error: Invalid date format : " + line);
+    std::getline(ss, date, ' ');
+    ss >> separator >> valueStr;
 
-    int _year = std::atoi(year.c_str());
-    int _month = std::atoi(month.c_str());
-    int _day = std::atoi(day.c_str());
+    if (separator != "|" || !(std::stringstream(valueStr) >> value)) {
+        std::cerr << "Error: Invalid format in line: " << line << std::endl;
+        return;
+    }
 
-    if (_year < 2009)
-        throw std::runtime_error("Error: Invalid year : " + line);
-    if (_month < 1 || _month > 12)
-        throw std::runtime_error("Error: Invalid month : " + line);
-    if (_day < 1)
-        throw std::runtime_error("Error: Invalid day : " + line);
+    ft_check_date(date);
 
-    if (has30Days(_month) && _day > 30)
-        throw std::runtime_error("Error: Invalid day for a month with 30 days : " + line);
-    if (has31Days(_month) && _day > 31)
-        throw std::runtime_error("Error: Invalid day for a month with 31 days : " + line);
+    if (value < 0) {
+        std::cerr << "Error: Not a positive number: " << value << std::endl;
+        return;
+    }
 
-    if (_month == 2) {
-        int maxDays = isLeapYear(_year) ? 29 : 28;
-        if (_day > maxDays)
-            throw std::runtime_error("Error: Invalid day for February : " + line);
+    if (value > std::numeric_limits<int>::max()) {
+        std::cerr << "Error: Number too large: " << value << std::endl;
+        return;
+    }
+
+    std::map<std::string, double>::iterator it = data.lower_bound(date);
+    if (it == data.end() || it->first != date)
+        if (it != data.begin()) --it;
+
+    double exchangeRate = (it != data.end()) ? it->second : 0;
+    std::cout << date << " => " << value << " = " << value * exchangeRate << std::endl;
+}
+
+void BitcoinExchange::ft_check_date(const std::string &line) {
+    std::stringstream ss(line);
+    std::string yearStr, monthStr, dayStr;
+
+    std::getline(ss, yearStr, '-');
+    std::getline(ss, monthStr, '-');
+    std::getline(ss, dayStr, '-');
+
+    int year = std::atoi(yearStr.c_str());
+    int month = std::atoi(monthStr.c_str());
+    int day = std::atoi(dayStr.c_str());
+
+    if (year < 2009)
+        throw std::runtime_error("Error: Year out of range: " + line);
+
+    if (month < 1 || month > 12)
+        throw std::runtime_error("Error: Invalid month: " + line);
+
+    if (day < 1 || (has30Days(month) && day > 30) || (has31Days(month) && day > 31) ||
+        (month == 2 && day > (isLeapYear(year) ? 29 : 28))) {
+        throw std::runtime_error("Error: Invalid day: " + line);
     }
 }
 
-
-//
-std::map<std::string, double> BitcoinExchange::getData(){
+std::map<std::string, double> BitcoinExchange::getData() {
     return data;
 }
 
 void BitcoinExchange::print() {
-    std::map<std::string , double> tmp = this->getData();
-    std::map<std::string , double>::iterator begin = tmp.begin();
-    std::map<std::string , double>::iterator end = tmp.end();
-    for (;begin != end; begin++) {
-        std::cout << begin->first << " " << begin->second << std::endl;
+    for (std::map<std::string, double>::iterator it = data.begin(); it != data.end(); it++) {
+        std::cout << it->first << " " << it->second << std::endl;
     }
 }
