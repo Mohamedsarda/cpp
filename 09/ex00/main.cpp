@@ -11,7 +11,6 @@ int main(int c, char **ar)
     BitcoinExchange btc;
     try {
         btc.Start(ar[1]);
-        // btc.print();
     } catch (std::exception &e) {
         std::cerr << e.what() << std::endl;
     }
