@@ -1,22 +1,3 @@
-// #ifndef A
-// #define A
-
-// #include "iostream"
-// #include <sstream>
-// #include <vector>
-// #include <deque>
-
-// class PmergeMe {
-//     private:
-//         std::vector<int> vectorList;
-//         std::deque<int> dequeList;
-//     public:
-//         void ft_parse_arr(char **arr, int c);
-//         template <typename T>
-//         void ft_sort(T &container);
-// };
-
-// #endif
 #ifndef PMERGEME_HPP
 #define PMERGEME_HPP
 
