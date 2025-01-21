@@ -53,16 +53,17 @@ void BitcoinExchange::readFromCsv(const std::string &fileName) {
     }
 }
 
+#include <iomanip>
 void BitcoinExchange::ft_fill_data(std::ifstream &file, std::map<std::string, double> &map) {
     std::string line;
     while (std::getline(file, line)) {
         std::stringstream ss(line);
-        std::string date;
+        std::string date, valueStr;
         double value;
 
         std::getline(ss, date, ',');
-        ss >> value;
-
+        std::getline(ss, valueStr, ',');
+        value = std::atof(valueStr.c_str());
         ft_check_date(date);
         map[date] = value;
     }
@@ -70,7 +71,7 @@ void BitcoinExchange::ft_fill_data(std::ifstream &file, std::map<std::string, do
 
 void BitcoinExchange::parseTransaction(const std::string &line) {
     std::stringstream ss(line);
-    std::string date, valueStr, separator;
+    std::string date, valueStr, separator, rest;
     double value;
 
     std::getline(ss, date, ' ');
@@ -80,6 +81,16 @@ void BitcoinExchange::parseTransaction(const std::string &line) {
         return ;
     if (pip > 2 && tmp[pip - 1] == ' ' && tmp[pip - 2] != ' ' && pip < tmp.length() - 2 && tmp[pip + 1] == ' ' && tmp[pip + 2] != ' ') {
         ss >> separator >> valueStr;
+        if ((ss >> rest)) {
+            std::cerr << "Error: Invalid format in [date | value]: " << line << std::endl;
+            return;
+        }
+        for (size_t i = 0; i < valueStr.length(); i++) {
+            if (!std::isdigit(valueStr[i])) {
+                std::cerr << "Error: Invalid format in line: " << line << std::endl;
+                return;
+            }
+        }
         if (separator != "|" || !(std::stringstream(valueStr) >> value)) {
             std::cerr << "Error: Invalid format in line: " << line << std::endl;
             return;
@@ -92,12 +103,12 @@ void BitcoinExchange::parseTransaction(const std::string &line) {
         }
 
         if (value < 0) {
-            std::cerr << "Error: Not a positive number: " << value << std::endl;
+            std::cerr << "Error: Not a positive number" << std::endl;
             return;
         }
 
         if (value > std::numeric_limits<int>::max()) {
-            std::cerr << "Error: Number too large: " << value << std::endl;
+            std::cerr << "Error: Number too large" << std::endl;
             return;
         }
 
@@ -112,46 +123,23 @@ void BitcoinExchange::parseTransaction(const std::string &line) {
     }
 }
 
-// void BitcoinExchange::parseTransaction(const std::string &line) {
-//     std::stringstream ss(line);
-//     std::string date, valueStr, separator;
-//     double value;
-
-//     std::getline(ss, date, ' ');
-//     ss >> separator >> valueStr;
-
-//     if (separator != "|" || !(std::stringstream(valueStr) >> value)) {
-//         std::cerr << "Error: Invalid format in line: " << line << std::endl;
-//         return;
-//     }
-
-//     ft_check_date(date);
-
-//     if (value < 0) {
-//         std::cerr << "Error: Not a positive number: " << value << std::endl;
-//         return;
-//     }
-
-//     if (value > std::numeric_limits<int>::max()) {
-//         std::cerr << "Error: Number too large: " << value << std::endl;
-//         return;
-//     }
-
-//     std::map<std::string, double>::iterator it = data.lower_bound(date);
-//     if (it == data.end() || it->first != date)
-//         if (it != data.begin()) --it;
-
-//     double exchangeRate = (it != data.end()) ? it->second : 0;
-//     std::cout << date << " => " << value << " = " << value * exchangeRate << std::endl;
-// }
 
 void BitcoinExchange::ft_check_date(const std::string &line) {
     std::stringstream ss(line);
-    std::string yearStr, monthStr, dayStr;
+    std::string yearStr, monthStr, dayStr, tmp;
 
     std::getline(ss, yearStr, '-');
     std::getline(ss, monthStr, '-');
     std::getline(ss, dayStr, '-');
+    int dash = 2;
+    for (size_t i = 0; i < line.length(); i++) {
+        if (line[i] == '-')
+            dash--;
+    }
+    if (dash < 0)
+        throw std::runtime_error("Error : Found More then 2 dashes in the date");
+    if ((ss >> tmp))
+        throw std::runtime_error("Error : Check The Date");
 
     int year = std::atoi(yearStr.c_str());
     int month = std::atoi(monthStr.c_str());
