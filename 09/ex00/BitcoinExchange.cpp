@@ -74,32 +74,76 @@ void BitcoinExchange::parseTransaction(const std::string &line) {
     double value;
 
     std::getline(ss, date, ' ');
-    ss >> separator >> valueStr;
+    std::string tmp = ss.str();
+    size_t pip = tmp.find('|');
+    if (pip == std::string::npos)
+        return ;
+    if (pip > 2 && tmp[pip - 1] == ' ' && tmp[pip - 2] != ' ' && pip < tmp.length() - 2 && tmp[pip + 1] == ' ' && tmp[pip + 2] != ' ') {
+        ss >> separator >> valueStr;
+        if (separator != "|" || !(std::stringstream(valueStr) >> value)) {
+            std::cerr << "Error: Invalid format in line: " << line << std::endl;
+            return;
+        }
+        try {
+            ft_check_date(date);
+        } catch (const std::exception &e){
+            std::cerr << e.what() << std::endl;
+            return;
+        }
 
-    if (separator != "|" || !(std::stringstream(valueStr) >> value)) {
-        std::cerr << "Error: Invalid format in line: " << line << std::endl;
-        return;
+        if (value < 0) {
+            std::cerr << "Error: Not a positive number: " << value << std::endl;
+            return;
+        }
+
+        if (value > std::numeric_limits<int>::max()) {
+            std::cerr << "Error: Number too large: " << value << std::endl;
+            return;
+        }
+
+        std::map<std::string, double>::iterator it = data.lower_bound(date);
+        if (it == data.end() || it->first != date)
+            if (it != data.begin()) --it;
+
+        double exchangeRate = (it != data.end()) ? it->second : 0;
+        std::cout << date << " => " << value << " = " << value * exchangeRate << std::endl;
+    } else {
+        std::cerr << "Error : Invalid Format" << std::endl;
     }
-
-    ft_check_date(date);
-
-    if (value < 0) {
-        std::cerr << "Error: Not a positive number: " << value << std::endl;
-        return;
-    }
-
-    if (value > std::numeric_limits<int>::max()) {
-        std::cerr << "Error: Number too large: " << value << std::endl;
-        return;
-    }
-
-    std::map<std::string, double>::iterator it = data.lower_bound(date);
-    if (it == data.end() || it->first != date)
-        if (it != data.begin()) --it;
-
-    double exchangeRate = (it != data.end()) ? it->second : 0;
-    std::cout << date << " => " << value << " = " << value * exchangeRate << std::endl;
 }
+
+// void BitcoinExchange::parseTransaction(const std::string &line) {
+//     std::stringstream ss(line);
+//     std::string date, valueStr, separator;
+//     double value;
+
+//     std::getline(ss, date, ' ');
+//     ss >> separator >> valueStr;
+
+//     if (separator != "|" || !(std::stringstream(valueStr) >> value)) {
+//         std::cerr << "Error: Invalid format in line: " << line << std::endl;
+//         return;
+//     }
+
+//     ft_check_date(date);
+
+//     if (value < 0) {
+//         std::cerr << "Error: Not a positive number: " << value << std::endl;
+//         return;
+//     }
+
+//     if (value > std::numeric_limits<int>::max()) {
+//         std::cerr << "Error: Number too large: " << value << std::endl;
+//         return;
+//     }
+
+//     std::map<std::string, double>::iterator it = data.lower_bound(date);
+//     if (it == data.end() || it->first != date)
+//         if (it != data.begin()) --it;
+
+//     double exchangeRate = (it != data.end()) ? it->second : 0;
+//     std::cout << date << " => " << value << " = " << value * exchangeRate << std::endl;
+// }
 
 void BitcoinExchange::ft_check_date(const std::string &line) {
     std::stringstream ss(line);
