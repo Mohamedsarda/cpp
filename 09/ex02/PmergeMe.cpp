@@ -82,7 +82,7 @@ void PmergeMe::ft_sort(std::vector<int> &container) {
         int second = container[i + 1];
         if (first > second)
             std::swap(first, second);
-        pairs.push_back(std::make_pair(first, second));
+        pairs.push_back(std::pair<int, int>(first, second));
     }
 
     std::sort(pairs.begin(), pairs.end(), ComparePairs());
@@ -101,11 +101,19 @@ void PmergeMe::ft_sort(std::vector<int> &container) {
     for (size_t i = 0; i < insertionOrder.size(); ++i) {
         size_t idx = insertionOrder[i];
         if (idx < pendingElements.size() && !inserted[idx]) {
-            binaryInsert(container, pendingElements[idx], idx + 1);
+            std::vector<int>::iterator pos = std::lower_bound(container.begin(), container.end(), pendingElements[idx]);
+            container.insert(pos, pendingElements[idx]);
             inserted[idx] = true;
         }
     }
 
+    for (size_t i = 0; i < pendingElements.size(); ++i) {
+        if (!inserted[i]) {
+            std::vector<int>::iterator pos = std::lower_bound(container.begin(), container.end(), pendingElements[i]);
+            container.insert(pos, pendingElements[i]);
+            inserted[i] = true;
+        }
+    }
     if (isOdd) {
         std::vector<int>::iterator insertPos = std::lower_bound(container.begin(),
                                                         container.end(),
@@ -151,8 +159,17 @@ void PmergeMe::ft_sort(std::deque<int> &container) {
     for (size_t i = 0; i < insertionOrder.size(); ++i) {
         size_t idx = insertionOrder[i];
         if (idx < pendingElements.size() && !inserted[idx]) {
-            binaryInsert(container, pendingElements[idx], idx + 1);
+            std::deque<int>::iterator pos = std::lower_bound(container.begin(), container.end(), pendingElements[idx]);
+            container.insert(pos, pendingElements[idx]);
             inserted[idx] = true;
+        }
+    }
+
+    for (size_t i = 0; i < pendingElements.size(); ++i) {
+        if (!inserted[i]) {
+            std::deque<int>::iterator pos = std::lower_bound(container.begin(), container.end(), pendingElements[i]);
+            container.insert(pos, pendingElements[i]);
+            inserted[i] = true;
         }
     }
 

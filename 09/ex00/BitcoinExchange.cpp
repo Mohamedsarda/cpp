@@ -53,7 +53,6 @@ void BitcoinExchange::readFromCsv(const std::string &fileName) {
     }
 }
 
-#include <iomanip>
 void BitcoinExchange::ft_fill_data(std::ifstream &file, std::map<std::string, double> &map) {
     std::string line;
     while (std::getline(file, line)) {
@@ -69,12 +68,19 @@ void BitcoinExchange::ft_fill_data(std::ifstream &file, std::map<std::string, do
     }
 }
 
+#include <iomanip>
 void BitcoinExchange::parseTransaction(const std::string &line) {
     std::stringstream ss(line);
     std::string date, valueStr, separator, rest;
     double value;
 
     std::getline(ss, date, ' ');
+    try {
+        ft_check_date(date);
+    } catch (const std::exception &e){
+        std::cerr << e.what() << std::endl;
+        return;
+    }
     std::string tmp = ss.str();
     size_t pip = tmp.find('|');
     if (pip == std::string::npos)
@@ -85,30 +91,13 @@ void BitcoinExchange::parseTransaction(const std::string &line) {
             std::cerr << "Error: Invalid format in [date | value]: " << line << std::endl;
             return;
         }
-        for (size_t i = 0; i < valueStr.length(); i++) {
-            if (!std::isdigit(valueStr[i])) {
-                std::cerr << "Error: Invalid format in line: " << line << std::endl;
-                return;
-            }
-        }
         if (separator != "|" || !(std::stringstream(valueStr) >> value)) {
             std::cerr << "Error: Invalid format in line: " << line << std::endl;
             return;
         }
-        try {
-            ft_check_date(date);
-        } catch (const std::exception &e){
-            std::cerr << e.what() << std::endl;
-            return;
-        }
 
-        if (value < 0) {
-            std::cerr << "Error: Not a positive number" << std::endl;
-            return;
-        }
-
-        if (value > std::numeric_limits<int>::max()) {
-            std::cerr << "Error: Number too large" << std::endl;
+        if (value < 0 || value > 1000) {
+            std::cerr << "Error: " << (value < 0 ? "Not a positive number" : "Number too large") << std::endl;
             return;
         }
 
@@ -131,6 +120,8 @@ void BitcoinExchange::ft_check_date(const std::string &line) {
     std::getline(ss, yearStr, '-');
     std::getline(ss, monthStr, '-');
     std::getline(ss, dayStr, '-');
+    if (yearStr.length() != 4 || monthStr.length() != 2 || dayStr.length() != 2)
+        throw std::runtime_error("Error : Check The Date");
     int dash = 2;
     for (size_t i = 0; i < line.length(); i++) {
         if (line[i] == '-')

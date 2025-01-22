@@ -10,6 +10,7 @@ int main(int argc, char **argv) {
         PmergeMe sorter;
         //
         sorter.ft_parse_arr(argv, argc);
+    
         sorter.sort();
     }
     catch (const std::exception& e) {
