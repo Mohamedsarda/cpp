@@ -31,12 +31,8 @@ void RPN::start(const std::string& input) {
             this->numbers.push(result);
         } else {
             try {
-                for (size_t i = 0; i < token.length(); i++) {
-                    if (token[0] == '-' || token[0] == '+')
-                        i++;
-                    if (!std::isdigit(token[i]))
-                        throw std::runtime_error("");
-                }
+                if (token[0] != '-' && token[0] != '+' && token.length() > 1)
+                    throw std::runtime_error("");
                 int num;
                 std::stringstream tmp(token);
                 if (!(tmp >> num) || num > 9)
