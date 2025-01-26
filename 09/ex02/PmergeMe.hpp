@@ -16,9 +16,6 @@ class PmergeMe {
         std::vector<size_t> generateJacobsthalNumbers_vec(size_t n);
         std::deque<size_t> generateJacobsthalNumbers_deq(size_t n);
 
-        template<typename T>
-        void binaryInsert(T& container, int value, size_t end);
-
     public:
         PmergeMe();
         PmergeMe &operator=(const PmergeMe &copy);
@@ -28,7 +25,7 @@ class PmergeMe {
         void ft_parse_arr(char **arr, int c);
         void ft_sort(std::deque<int> &container);
         void ft_sort(std::vector<int> &container);
-        void sort();
+        void sort(char **arr, int c);
         void printVector() const;
         void printDeque() const;
 

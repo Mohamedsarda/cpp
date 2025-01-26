@@ -51,6 +51,7 @@ void BitcoinExchange::readFromCsv(const std::string &fileName) {
             parseTransaction(line);
         }
     }
+    file.close();
 }
 
 void BitcoinExchange::ft_fill_data(std::ifstream &file, std::map<std::string, double> &map) {
@@ -68,13 +69,16 @@ void BitcoinExchange::ft_fill_data(std::ifstream &file, std::map<std::string, do
     }
 }
 
-#include <iomanip>
 void BitcoinExchange::parseTransaction(const std::string &line) {
     std::stringstream ss(line);
     std::string date, valueStr, separator, rest;
     double value;
 
     std::getline(ss, date, ' ');
+    if (line[line.length() - 1] == ' ' || line[line.length() - 1] == '\t') {
+        std::cerr << "Error: Invalid format in [date | value]: " << line << std::endl;
+        return;
+    }
     try {
         ft_check_date(date);
     } catch (const std::exception &e){

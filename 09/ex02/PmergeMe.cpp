@@ -14,7 +14,19 @@ std::vector<size_t> PmergeMe::generateJacobsthalNumbers_vec(size_t n) {
         jacobsthal.push_back(next);
         i++;
     }
-    return jacobsthal;
+    std::vector<size_t> reordered;
+
+    for (size_t i = 1; i < jacobsthal.size(); ++i) {
+        size_t current = jacobsthal[i];
+        size_t previous = jacobsthal[i - 1];
+
+        reordered.push_back(current);
+
+        for (size_t j = current - 1; j > previous; --j)
+            reordered.push_back(j);
+    }
+
+    return reordered;
 }
 
 std::deque<size_t> PmergeMe::generateJacobsthalNumbers_deq(size_t n) {
@@ -31,7 +43,18 @@ std::deque<size_t> PmergeMe::generateJacobsthalNumbers_deq(size_t n) {
         jacobsthal.push_back(next);
         i++;
     }
-    return jacobsthal;
+    std::deque<size_t> reordered;
+
+    for (size_t i = 1; i < jacobsthal.size(); ++i) {
+        size_t current = jacobsthal[i];
+        size_t previous = jacobsthal[i - 1];
+
+        reordered.push_back(current);
+        for (size_t j = current - 1; j > previous; --j)
+            reordered.push_back(j);
+    }
+
+    return reordered;
 }
 
 void PmergeMe::ft_parse_arr(char **arr, int c) {
@@ -56,13 +79,6 @@ struct ComparePairs {
     }
 };
 
-template <typename T>
-void PmergeMe::binaryInsert(T& container, int value, size_t end) {
-    typename T::iterator insertPos = std::lower_bound(container.begin(),
-                                                    container.begin() + end,
-                                                    value);
-    container.insert(insertPos, value);
-}
 
 void PmergeMe::ft_sort(std::vector<int> &container) {
     if (container.size() <= 1)
@@ -87,6 +103,7 @@ void PmergeMe::ft_sort(std::vector<int> &container) {
 
     std::sort(pairs.begin(), pairs.end(), ComparePairs());
 
+    std::vector<size_t> insertionOrder = generateJacobsthalNumbers_vec(container.size());
     container.clear();
     std::vector<int> pendingElements;
 
@@ -94,24 +111,15 @@ void PmergeMe::ft_sort(std::vector<int> &container) {
         container.push_back(pairs[i].second);
         pendingElements.push_back(pairs[i].first);
     }
-
-    std::vector<size_t> insertionOrder = generateJacobsthalNumbers_vec(pendingElements.size());
-
-    std::vector<bool> inserted(pendingElements.size(), false);
-    for (size_t i = 0; i < insertionOrder.size(); ++i) {
+    if (pendingElements.size() > 0) {
+        std::vector<int>::iterator pos1 = std::lower_bound(container.begin(), container.end(), pendingElements[0]);
+        container.insert(pos1, pendingElements[0]);
+    }
+    for (size_t i = 1; i < insertionOrder.size(); ++i) {
         size_t idx = insertionOrder[i];
-        if (idx < pendingElements.size() && !inserted[idx]) {
+        if (idx < pendingElements.size()) {
             std::vector<int>::iterator pos = std::lower_bound(container.begin(), container.end(), pendingElements[idx]);
             container.insert(pos, pendingElements[idx]);
-            inserted[idx] = true;
-        }
-    }
-
-    for (size_t i = 0; i < pendingElements.size(); ++i) {
-        if (!inserted[i]) {
-            std::vector<int>::iterator pos = std::lower_bound(container.begin(), container.end(), pendingElements[i]);
-            container.insert(pos, pendingElements[i]);
-            inserted[i] = true;
         }
     }
     if (isOdd) {
@@ -145,6 +153,7 @@ void PmergeMe::ft_sort(std::deque<int> &container) {
 
     std::sort(pairs.begin(), pairs.end(), ComparePairs());
 
+    std::deque<size_t> insertionOrder = generateJacobsthalNumbers_deq(container.size());
     container.clear();
     std::deque<int> pendingElements;
 
@@ -153,26 +162,17 @@ void PmergeMe::ft_sort(std::deque<int> &container) {
         pendingElements.push_back(pairs[i].first);
     }
 
-    std::deque<size_t> insertionOrder = generateJacobsthalNumbers_deq(pendingElements.size());
-
-    std::deque<bool> inserted(pendingElements.size(), false);
-    for (size_t i = 0; i < insertionOrder.size(); ++i) {
+    if (pendingElements.size() > 0) {
+        std::deque<int>::iterator pos1 = std::lower_bound(container.begin(), container.end(), pendingElements[0]);
+        container.insert(pos1, pendingElements[0]);
+    }
+    for (size_t i = 1; i < insertionOrder.size(); ++i) {
         size_t idx = insertionOrder[i];
-        if (idx < pendingElements.size() && !inserted[idx]) {
+        if (idx < pendingElements.size()) {
             std::deque<int>::iterator pos = std::lower_bound(container.begin(), container.end(), pendingElements[idx]);
             container.insert(pos, pendingElements[idx]);
-            inserted[idx] = true;
         }
     }
-
-    for (size_t i = 0; i < pendingElements.size(); ++i) {
-        if (!inserted[i]) {
-            std::deque<int>::iterator pos = std::lower_bound(container.begin(), container.end(), pendingElements[i]);
-            container.insert(pos, pendingElements[i]);
-            inserted[i] = true;
-        }
-    }
-
     if (isOdd) {
         std::deque<int>::iterator insertPos = std::lower_bound(container.begin(),
                                                         container.end(),
@@ -182,15 +182,16 @@ void PmergeMe::ft_sort(std::deque<int> &container) {
 }
 
 
-void PmergeMe::sort() {
+void PmergeMe::sort(char **arr, int c) {
+    clock_t start = clock();
+    //
+    ft_parse_arr(arr, c);
     std::cout << "Before: ";
     printDeque();
     //
-    clock_t startVec = clock();
     ft_sort(vectorList);
     clock_t endVec = clock();
     //
-    clock_t startDeq = clock();
     ft_sort(dequeList);
     clock_t endDeq = clock();
     //
@@ -198,9 +199,9 @@ void PmergeMe::sort() {
     printDeque();
     //
     long elapsedMicrosecondsVec = static_cast<long>(
-            static_cast<double>(endVec - startVec) / CLOCKS_PER_SEC * 1000000);
+            static_cast<double>(endVec - start) / CLOCKS_PER_SEC * 1000000);
     long elapsedMicrosecondsDeq = static_cast<long>(
-            static_cast<double>(endDeq - startDeq) / CLOCKS_PER_SEC * 1000000);
+            static_cast<double>(endDeq - start) / CLOCKS_PER_SEC * 1000000);
     // print
     std::cout << "Time to process a range of " << vectorList.size();
     std::cout << " elements with std::vector<int> " << elapsedMicrosecondsVec << " us" << std::endl;
